@@ -1,6 +1,7 @@
 ﻿using DataAPI.Data.Access;
 using DataAPI.Data.Models;
 using DataAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,6 +15,7 @@ namespace DataAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize(Roles = "Main")]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationSettings _applicationSettings;
@@ -22,6 +24,7 @@ namespace DataAPI.Controllers
             this._applicationSettings = applicationSettings.Value;
         }
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Login(AdminLogin model)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -71,14 +74,60 @@ namespace DataAPI.Controllers
             resultInfo.Data = AdminDB.Instance.GetAllAdmins(search);
             return Ok(resultInfo);
         }
+        [HttpPost]
+        public IActionResult CreateAdmin(AdminCreate adminCreate)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            PasswordHashing pwd = HashPass(adminCreate.Password);
+            Admin admin = new Admin
+            {
+                Name = adminCreate.Name,
+                Email = adminCreate.Email,
+                PasswordSalt = pwd.PasswordSalt,
+                PasswordHash = pwd.PasswordHash,
+                Role = adminCreate.Role,
+                Details = adminCreate.Details,
+            };
+            resultInfo.Status = AdminDB.Instance.CreateAdmin(admin);
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult UpdateAdminDetails(AdminUpdateDetails adminUpdate)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            Admin admin = new Admin
+            {
+                Id = adminUpdate.Id,
+                Name = adminUpdate.Name,
+                Email = adminUpdate.Email,
+                Role = adminUpdate.Role,
+                Details = adminUpdate.Details
+            };
+            resultInfo.Status = AdminDB.Instance.UpdateAdminDetails(admin);
+            return Ok(resultInfo);
+        }
 
+        [HttpPost]
+        public IActionResult UpdateAdminPassword(AdminUpdatePassword adminPwd)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            PasswordHashing pwd = HashPass(adminPwd.Password);
+            Admin admin = new Admin
+            {
+                Id = adminPwd.Id,
+                PasswordHash = pwd.PasswordHash,
+                PasswordSalt = pwd.PasswordSalt
+            };
+            resultInfo.Status = AdminDB.Instance.UpdateAdminPassword(admin);
+            return Ok(resultInfo);
+        }
         /// <summary>
         /// Check if the password is correct
         /// </summary>
         /// <param name="password"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        private bool CheckPassword(string password, Admin admin)
+        private bool CheckPassword(string password, Data.Models.Admin admin)
         {
             bool result;
             using (HMACSHA512? hmac = new HMACSHA512(admin.PasswordSalt))
@@ -114,7 +163,7 @@ namespace DataAPI.Controllers
             var main = AdminDB.Instance.GetAllAdmins().Where(x => x.Role == "Main").FirstOrDefault();
             if (main == null)
             {
-                var admin = new Admin { Name = "Main Admin", Email = "main@email.com", Role = "Main" };
+                var admin = new Data.Models.Admin { Name = "Main Admin", Email = "main@email.com", Role = "Main" };
                 var pass = HashPass("password");
                 admin.PasswordSalt = pass.PasswordSalt;
                 admin.PasswordHash = pass.PasswordHash;

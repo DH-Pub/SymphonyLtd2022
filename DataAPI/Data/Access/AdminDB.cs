@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using DataAPI.Data.Models;
+using DataAPI.Models;
 using System.Data.SqlClient;
 
 namespace DataAPI.Data.Access
@@ -54,17 +55,29 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
-        public bool UpdateAdmin(Admin admin)
+        public bool UpdateAdminDetails(Admin admin)
         {
-            string sql = "update [Admins] set Name=@Name, Email=@Email, PasswordSalt=@PasswordSalt, PasswordHash=@PasswordHash, Role=@Role, Details=@Details where Id=@Id";
+            string sql = "update [Admins] set Name=@Name, Email=@Email,  Role=@Role, Details=@Details where Id=@Id";
             var param = new
             {
                 Name = admin.Name,
                 Email = admin.Email,
-                PasswordSalt = admin.PasswordSalt,
-                PasswordHash = admin.PasswordHash,
                 Role = admin.Role,
                 Details = admin.Details,
+                Id = admin.Id
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
+        public bool UpdateAdminPassword(Admin admin)
+        {
+            string sql = "update [Admins] set PasswordSalt=@PasswordSalt, PasswordHash=@PasswordHash, where Id=@Id";
+            var param = new
+            {
+                PasswordSalt = admin.PasswordSalt,
+                PasswordHash = admin.PasswordHash,
                 Id = admin.Id
             };
             connection.Open();
