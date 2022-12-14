@@ -59,10 +59,21 @@ namespace DataAPI.Controllers
             // -------------------
 
             var adminResult = new AdminResult();
+            adminResult.Id = admin.Id;
+            adminResult.Name = admin.Name;
             adminResult.Email = admin.Email;
             adminResult.Token = encrypterToken;
 
             resultInfo.Data = adminResult;
+            return Ok(resultInfo);
+        }
+        [HttpGet]
+        public IActionResult GetAdmin(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = true;
+            var admin = AdminDB.Instance.GetAdminById(id);
+            resultInfo.Data = admin;
             return Ok(resultInfo);
         }
         [HttpPost]
@@ -71,7 +82,8 @@ namespace DataAPI.Controllers
             ResultInfo resultInfo = new ResultInfo();
             resultInfo.Status = true;
             string search = (filter != null) ? filter.Search : string.Empty;
-            resultInfo.Data = AdminDB.Instance.GetAllAdmins(search);
+            var admins = AdminDB.Instance.GetAllAdmins(search);
+            resultInfo.Data = admins.Select(a => new { a.Id, a.Name, a.Email, a.Role, a.Details }).ToList(); // don't return password
             return Ok(resultInfo);
         }
         [HttpPost]

@@ -17,6 +17,9 @@ builder.Services.AddSwaggerGen();
 //Send json with proper case
 builder.Services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+// allow null for refernce model
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 
 // Get ApplicationsSettings class to get data "ApplicationSettings" from appsettings.json
 builder.Services.Configure<ApplicationSettings>(builder.Configuration.GetSection("ApplicationSettings"));

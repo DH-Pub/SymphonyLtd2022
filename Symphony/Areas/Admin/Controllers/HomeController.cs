@@ -21,7 +21,7 @@ namespace Symphony.Areas.Admin.Controllers
         }
         public IActionResult Login()
         {
-            return View(new AdminLoginModel());
+            return View();
         }
 
         [HttpPost]
@@ -34,11 +34,11 @@ namespace Symphony.Areas.Admin.Controllers
             AdminApiResult result = JsonSerializer.Deserialize<AdminApiResult>(data);
             if (result.Status)
             {
-                HttpContext.Session.SetString(_tokenName, result.Data.Token); // save token to session
+                //HttpContext.Session.SetString(_tokenName, result.Data.Token);
 
                 // get role from token
                 string role = "";
-                var stream = result.Data.Token;
+                var stream = result.Data.Token; // token from api
                 var handler = new JwtSecurityTokenHandler();
                 var tokenDecoded = handler.ReadJwtToken(stream);
 
@@ -51,12 +51,17 @@ namespace Symphony.Areas.Admin.Controllers
                             break;
                     }
                 }
+                // save token to Cookie
+                Response.Cookies.Append(_tokenName, stream);
 
                 // save login info to cookie
                 List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, model.Email),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim("id", result.Data.Id.ToString()),
+                    new Claim(ClaimTypes.Name, result.Data.Name),
+                    new Claim(ClaimTypes.Email, result.Data.Email),
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim("token", stream),
                 };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 AuthenticationProperties properties = new AuthenticationProperties()
@@ -74,6 +79,7 @@ namespace Symphony.Areas.Admin.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
+            Response.Cookies.Delete(_tokenName);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }

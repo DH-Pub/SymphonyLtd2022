@@ -13,6 +13,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.LoginPath = "/admin/home/login";
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
+// allow null for refernce model
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 
 // Add Session
 builder.Services.AddSession(options =>

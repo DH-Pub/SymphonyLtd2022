@@ -6,6 +6,7 @@
     }
     public class AdminFilter
     {
+        public long Id { get; set; }
         public string Search { get; set; }
     }
     public class AdminCreate

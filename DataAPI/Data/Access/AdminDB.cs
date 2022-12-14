@@ -32,9 +32,17 @@ namespace DataAPI.Data.Access
         }
         public Admin GetAdminByEmail(string email)
         {
-            string sql = "select * from [Admins] where [Email]=@email";
+            string sql = "select * from [Admins] where [Email]='" + email + "'";
             connection.Open();
-            Admin admin = connection.Query<Admin>(sql, new { email = email }).FirstOrDefault();
+            Admin admin = connection.Query<Admin>(sql).FirstOrDefault();
+            connection.Close();
+            return admin;
+        }
+        public Admin GetAdminById(long id)
+        {
+            string sql = "select [Id], [Name], [Email], [Role], [Details] from [Admins] where [Id]='" + id + "'";
+            connection.Open();
+            Admin admin = connection.Query<Admin>(sql).FirstOrDefault();
             connection.Close();
             return admin;
         }
