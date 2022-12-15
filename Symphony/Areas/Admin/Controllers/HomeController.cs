@@ -19,6 +19,7 @@ namespace Symphony.Areas.Admin.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();

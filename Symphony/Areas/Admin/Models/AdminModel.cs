@@ -29,6 +29,18 @@ namespace Symphony.Areas.Admin.Models
         public string Role { get; set; }
         public string Details { get; set; }
     }
+    public class AdminPassUpdate
+    {
+        public long Id { get; set; }
+        [Required]
+        public string OldPassword { get; set; }
+        [Required]
+        public string NewPassword { get; set; }
+        [Required]
+        public string NewPasswordConfirm { get; set; }
+    }
+
+
     /// <summary>
     /// Display Admins (no passwords)
     /// </summary>

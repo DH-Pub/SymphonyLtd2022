@@ -40,7 +40,7 @@ namespace DataAPI.Data.Access
         }
         public Admin GetAdminById(long id)
         {
-            string sql = "select [Id], [Name], [Email], [Role], [Details] from [Admins] where [Id]='" + id + "'";
+            string sql = "select * from [Admins] where [Id]='" + id + "'";
             connection.Open();
             Admin admin = connection.Query<Admin>(sql).FirstOrDefault();
             connection.Close();
@@ -81,7 +81,7 @@ namespace DataAPI.Data.Access
         }
         public bool UpdateAdminPassword(Admin admin)
         {
-            string sql = "update [Admins] set PasswordSalt=@PasswordSalt, PasswordHash=@PasswordHash, where Id=@Id";
+            string sql = "update [Admins] set PasswordSalt=@PasswordSalt, PasswordHash=@PasswordHash where Id=@Id";
             var param = new
             {
                 PasswordSalt = admin.PasswordSalt,
@@ -93,9 +93,9 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
-        public bool DeleteAdmin(string id)
+        public bool DeleteAdmin(long id)
         {
-            string sql = "delete from [Admins] where Id=" + id;
+            string sql = "delete from [Admins] where [Id]='" + id + "'";
             connection.Open();
             bool result = connection.Execute(sql) == 1;
             connection.Close();
@@ -107,7 +107,7 @@ namespace DataAPI.Data.Access
             string sql = "select * from [Admins]";
             if (!string.IsNullOrWhiteSpace(keySearch))
             {
-                sql += " where Email like " + keySearch + " or Name like N'%" + keySearch + "%'";
+                sql += " where Email like '" + keySearch + "' or Name like N'%" + keySearch + "%'";
             }
             connection.Open();
             List<Admin> result = connection.Query<Admin>(sql).ToList();

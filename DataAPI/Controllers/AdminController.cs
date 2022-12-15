@@ -2,11 +2,11 @@
 using DataAPI.Data.Models;
 using DataAPI.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -49,7 +49,9 @@ namespace DataAPI.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim("id", admin.Email),
+                    new Claim("id", admin.Id.ToString()),
+                    new Claim(ClaimTypes.Name, admin.Name),
+                    new Claim(ClaimTypes.Email, admin.Email),
                     new Claim(ClaimTypes.Role, admin.Role) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
@@ -73,15 +75,21 @@ namespace DataAPI.Controllers
             ResultInfo resultInfo = new ResultInfo();
             resultInfo.Status = true;
             var admin = AdminDB.Instance.GetAdminById(id);
-            resultInfo.Data = admin;
+            resultInfo.Data = new
+            {
+                Id = admin.Id,
+                Name = admin.Name,
+                Email = admin.Email,
+                Role = admin.Role,
+                Details = admin.Details,
+            };
             return Ok(resultInfo);
         }
-        [HttpPost]
-        public IActionResult ShowAdmins(AdminFilter filter)
+        [HttpGet]
+        public IActionResult ShowAdmins(string search)
         {
             ResultInfo resultInfo = new ResultInfo();
             resultInfo.Status = true;
-            string search = (filter != null) ? filter.Search : string.Empty;
             var admins = AdminDB.Instance.GetAllAdmins(search);
             resultInfo.Data = admins.Select(a => new { a.Id, a.Name, a.Email, a.Role, a.Details }).ToList(); // don't return password
             return Ok(resultInfo);
@@ -123,7 +131,22 @@ namespace DataAPI.Controllers
         public IActionResult UpdateAdminPassword(AdminUpdatePassword adminPwd)
         {
             ResultInfo resultInfo = new ResultInfo();
-            PasswordHashing pwd = HashPass(adminPwd.Password);
+            var checkAdmin = AdminDB.Instance.GetAdminById(adminPwd.Id);
+            if(checkAdmin == null)
+            {
+                resultInfo.Message = "admin does not exist";
+                return Ok(resultInfo);
+            }
+            // Check old password
+            if(!CheckPassword(adminPwd.OldPassword, checkAdmin))
+            {
+                resultInfo.Message = "Old password is incorrect";
+                return Ok(resultInfo);
+            }
+            resultInfo.Status = true;
+
+            // apply new password
+            PasswordHashing pwd = HashPass(adminPwd.NewPassword);
             Admin admin = new Admin
             {
                 Id = adminPwd.Id,
@@ -133,13 +156,22 @@ namespace DataAPI.Controllers
             resultInfo.Status = AdminDB.Instance.UpdateAdminPassword(admin);
             return Ok(resultInfo);
         }
+
+        [HttpDelete]
+        public IActionResult DeleteAdmin(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = AdminDB.Instance.DeleteAdmin(id);
+            return Ok(resultInfo);
+        }
+
         /// <summary>
         /// Check if the password is correct
         /// </summary>
         /// <param name="password"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        private bool CheckPassword(string password, Data.Models.Admin admin)
+        private bool CheckPassword(string password, Admin admin)
         {
             bool result;
             using (HMACSHA512? hmac = new HMACSHA512(admin.PasswordSalt))
@@ -149,7 +181,6 @@ namespace DataAPI.Controllers
             }
             return result;
         }
-
         /// <summary>
         /// Hashing password when creating
         /// </summary>
@@ -171,12 +202,17 @@ namespace DataAPI.Controllers
         /// <returns></returns>
         private bool FirstAdmin()
         {
+            var Appsettings = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ApplicationSettings");
+            var mainName = Appsettings["MainName"];
+            var mainEmail = Appsettings["MainEmail"];
+            var mainPassword = Appsettings["MainPassword"];
+            var mainRole = Appsettings["MainRole"];
             bool result = false;
             var main = AdminDB.Instance.GetAllAdmins().Where(x => x.Role == "Main").FirstOrDefault();
             if (main == null)
             {
-                var admin = new Data.Models.Admin { Name = "Main Admin", Email = "main@email.com", Role = "Main" };
-                var pass = HashPass("password");
+                var admin = new Data.Models.Admin { Name = mainName, Email = mainEmail, Role = mainRole };
+                var pass = HashPass(mainPassword);
                 admin.PasswordSalt = pass.PasswordSalt;
                 admin.PasswordHash = pass.PasswordHash;
                 result = AdminDB.Instance.CreateAdmin(admin);

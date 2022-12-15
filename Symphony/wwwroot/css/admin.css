@@ -1,2 +1,7 @@
 ﻿body {
 }
+
+/* offset bootstrap 4 .row negative margin */
+.row {
+    margin: 0;
+}

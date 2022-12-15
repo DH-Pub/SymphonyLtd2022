@@ -10,6 +10,9 @@
 <table id="admin" class="table table-bordered table-hover">
     <thead>
         <tr>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -26,6 +29,9 @@
         @foreach (var item in Model.Where(i => i.Id.ToString() != adminId))
         {
             <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -36,9 +42,9 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td>
-                    @Html.ActionLink("Update", "Update", new { id=item.Id}) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Update", "Update", new {id=item.Id}) |
+                    @Html.ActionLink("Details", "Details", new {id=item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id=item.Id})
                 </td>
             </tr>
         }
@@ -56,6 +62,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,
+                order: [[0, 'desc']],
             })
         })
     </script>
