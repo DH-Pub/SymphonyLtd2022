@@ -28,7 +28,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return View(result.Data);
             }
-            return View(new AdminShowModel());
+            return View(new List<AdminShowModel>());
         }
 
         // Create View

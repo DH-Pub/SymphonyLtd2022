@@ -34,7 +34,7 @@
                 <!-- Admin -->
                 <li class="nav-item has-treeview">
                     <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-lock fa-duotone"></i>
                         <p>
                             Admins
                             <i class="right fas fa-angle-left"></i>
@@ -73,6 +73,31 @@
                             <a asp-action="UpdatePassword" asp-controller="Admin" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Update Passwords</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Exams-->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-file-circle-exclamation"></i>
+                        <p>
+                            Entrance Examinations
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Exam List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Exam</p>
                             </a>
                         </li>
                     </ul>
