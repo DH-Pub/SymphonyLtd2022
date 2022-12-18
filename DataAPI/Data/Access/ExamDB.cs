@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using DataAPI.Data.Models;
-using Microsoft.AspNetCore.Connections.Features;
 using System.Data.SqlClient;
 
 namespace DataAPI.Data.Access
@@ -32,7 +31,7 @@ namespace DataAPI.Data.Access
         }
         public List<ExamCourse> GetAllExamsWithCourses()
         {
-            string sql = "SELECT e.[Id],e.[CourseId],e.[Date],e.[Details],e.[Fee],c.Name as CourseName, c.Description as CourseDescription\r\nFROM [Exams] as e JOIN [Courses] as c on e.[CourseId] = c.[Id]";
+            string sql = "SELECT e.[Id],e.[CourseId],e.[Date],e.[Details],e.[Fee],c.Name as CourseName, c.Description as CourseDescription FROM [Exams] as e JOIN [Courses] as c on e.[CourseId] = c.[Id]";
             connection.Open();
             List<ExamCourse> result = connection.Query<ExamCourse>(sql).ToList();
             connection.Close();
@@ -40,7 +39,7 @@ namespace DataAPI.Data.Access
         }
         public ExamCourse GetExamById(string id)
         {
-            string sql = "SELECT e.[Id],e.[CourseId],e.[Date],e.[Details],e.[Fee],c.[Name] as CourseName, c.[Description] as CourseDescription\r\nFROM [Exams] as e JOIN [Courses] as c on e.[CourseId] = c.[Id] where e.[Id]='" + id + "'";
+            string sql = "SELECT e.[Id],e.[CourseId],e.[Date],e.[Details],e.[Fee],c.[Name] as CourseName, c.[Description] as CourseDescription FROM [Exams] as e JOIN [Courses] as c on e.[CourseId] = c.[Id] where e.[Id]='" + id + "'";
             connection.Open();
             ExamCourse exam = connection.Query<ExamCourse>(sql).FirstOrDefault();
             connection.Close();

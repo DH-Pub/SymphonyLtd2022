@@ -9,6 +9,7 @@ namespace Symphony.Areas.Admin.Models
         [Required]
         [DisplayName("Course ID")]
         public string CourseId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime Date { get; set; }
         public string Details { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
@@ -27,6 +28,7 @@ namespace Symphony.Areas.Admin.Models
         [DisplayName("Name of Course")]
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime Date { get; set; }
         public string Details { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
