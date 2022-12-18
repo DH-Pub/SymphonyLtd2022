@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Symphony.Areas.Admin.Models
 {
     public class ExamModel
     {
         public string Id { get; set; }
+        [Required]
+        [DisplayName("Course ID")]
         public string CourseId { get; set; }
         public DateTime Date { get; set; }
         public string Details { get; set; }
@@ -18,7 +21,10 @@ namespace Symphony.Areas.Admin.Models
     public class ExamCourseModel
     {
         public string Id { get; set; }
+        [Required]
+        [DisplayName("Course ID")]
         public string CourseId { get; set; }
+        [DisplayName("Name of Course")]
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
         public DateTime Date { get; set; }
