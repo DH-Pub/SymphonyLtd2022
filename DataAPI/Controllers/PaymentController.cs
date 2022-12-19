@@ -2,14 +2,13 @@
 using DataAPI.Data.Models;
 using DataAPI.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize(Roles = "Finance")]
+    [Authorize(Roles = "Finance,Main")]
     public class PaymentController : ControllerBase
     {
         [HttpGet]
@@ -20,7 +19,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
-        public IActionResult GetAllExams()
+        public IActionResult GetAllPayments()
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };
             resultInfo.Data = PaymentDB.Instance.GetAllPayments();
@@ -30,7 +29,7 @@ namespace DataAPI.Controllers
         public IActionResult CreatePayment(Payment payment)
         {
             ResultInfo resultInfo = new ResultInfo();
-            resultInfo.Data = PaymentDB.Instance.CreatePayment(payment);
+            resultInfo.Status = PaymentDB.Instance.CreatePayment(payment);
             return Ok(resultInfo);
         }
         [HttpPost]

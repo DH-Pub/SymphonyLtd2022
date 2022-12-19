@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Symphony.Areas.Admin.Models;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -7,7 +9,8 @@ using System.Text.Json;
 namespace Symphony.Areas.Admin.Controllers
 {
     [Area("admin")]
-    public class ExamController : Controller
+    [Authorize(Roles = "Finance,Main")]
+    public class PaymentController : Controller
     {
         private const string _tokenName = "token";
         public IActionResult Index()
@@ -15,95 +18,87 @@ namespace Symphony.Areas.Admin.Controllers
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var res = httpClient.GetAsync(Program.ApiAddress + "api/Exam/GetAllExams").Result;
+            var res = httpClient.GetAsync(Program.ApiAddress + "api/Payment/GetAllPayments").Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseListApi result = JsonSerializer.Deserialize<ExamCourseListApi>(data);
+            PaymentListApi result = JsonSerializer.Deserialize<PaymentListApi>(data);
             if (result.Status)
             {
                 return View(result.Data);
             }
-            return View(new List<ExamCourseModel>());
+            return View(new List<PaymentModel>());
         }
-        public IActionResult Details(string id)
+        public IActionResult Details(long id)
         {
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var res = httpClient.GetAsync(Program.ApiAddress + "api/Exam/GetExam?id=" + id).Result;
+            var res = httpClient.GetAsync(Program.ApiAddress + "api/Payment/GetPayment?id=" + id).Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseApi result = JsonSerializer.Deserialize<ExamCourseApi>(data);
+            PaymentApi result = JsonSerializer.Deserialize<PaymentApi>(data);
             if (result.Status)
             {
                 return View(result.Data);
             }
-            return View(new ExamCourseModel());
+            return View(new PaymentModel());
         }
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(ExamModel model)
+        public IActionResult Create(PaymentModel model)
         {
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             StringContent stringContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-            var res = httpClient.PostAsync(Program.ApiAddress + "api/Exam/CreateExam", stringContent).Result;
+            var res = httpClient.PostAsync(Program.ApiAddress + "api/Payment/CreatePayment", stringContent).Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseApi result = JsonSerializer.Deserialize<ExamCourseApi>(data);
+            PaymentApi result = JsonSerializer.Deserialize<PaymentApi>(data);
             if (result.Status)
             {
                 return RedirectToAction("Index");
             }
             return View(model);
         }
-        public IActionResult Update(string id)
+        public IActionResult Update(long id)
         {
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var res = httpClient.GetAsync(Program.ApiAddress + "api/Exam/GetExam?id=" + id).Result;
+            var res = httpClient.GetAsync(Program.ApiAddress + "api/Payment/GetPayment?id=" + id).Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseApi result = JsonSerializer.Deserialize<ExamCourseApi>(data);
+            PaymentApi result = JsonSerializer.Deserialize<PaymentApi>(data);
             if (result.Status)
             {
-                ExamModel exam = new ExamModel
-                {
-                    Id = result.Data.Id,
-                    CourseId = result.Data.CourseId,
-                    Date = result.Data.Date,
-                    Details = result.Data.Details,
-                    Fee = result.Data.Fee
-                };
-                return View(exam);
+                return View(result.Data);
             }
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult Update(ExamModel model)
+        public IActionResult Update(PaymentModel model)
         {
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             StringContent stringContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-            var res = httpClient.PostAsync(Program.ApiAddress + "api/Exam/UpdateExam", stringContent).Result;
+            var res = httpClient.PostAsync(Program.ApiAddress + "api/Payment/UpdatePayment", stringContent).Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseApi result = JsonSerializer.Deserialize<ExamCourseApi>(data);
+            PaymentApi result = JsonSerializer.Deserialize<PaymentApi>(data);
             if (result.Status)
             {
                 return RedirectToAction("Index");
             }
             return View(model);
         }
-        public IActionResult Delete(string id)
+        public IActionResult Delete(long id)
         {
             string token = Request.Cookies[_tokenName];
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var res = httpClient.DeleteAsync(Program.ApiAddress + "api/Exam/DeleteExam?id=" + id).Result;
+            var res = httpClient.DeleteAsync(Program.ApiAddress + "api/Payment/DeletePayment?id=" + id).Result;
             var data = res.Content.ReadAsStringAsync().Result;
-            ExamCourseApi result = JsonSerializer.Deserialize<ExamCourseApi>(data);
+            PaymentApi result = JsonSerializer.Deserialize<PaymentApi>(data);
             if (result.Status)
             {
                 return RedirectToAction("Index");

@@ -13,7 +13,7 @@ namespace Symphony.Areas.Admin.Models
         public DateTime Date { get; set; }
         public string Details { get; set; }
         [DisplayFormat(DataFormatString = "{0:C}")]
-        [Range(0, double.MaxValue)]
+        [Range(0, 100_000_000)]
         public double Fee { get; set; }
     }
     /// <summary>

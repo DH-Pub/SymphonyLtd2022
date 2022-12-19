@@ -12,6 +12,7 @@ namespace DataAPI.Controllers
     public class ExamController : ControllerBase
     {
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetExam(string id)
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };
@@ -19,6 +20,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllExams()
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };
