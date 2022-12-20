@@ -55,7 +55,7 @@ namespace Symphony.Areas.Admin.Models
         public string Details { get; set; }
     }
     /// <summary>
-    /// For receiving api result for AdminShowModel
+    /// For receiving api result for list of AdminShowModel
     /// </summary>
     public class AdminListApiShow
     {
@@ -72,7 +72,7 @@ namespace Symphony.Areas.Admin.Models
 
 
     /// <summary>
-    /// Model used to Login (send to API)
+    /// Model used to post Login (send to API)
     /// </summary>
     public class AdminLoginModel
     {
@@ -85,7 +85,7 @@ namespace Symphony.Areas.Admin.Models
 
 
     /// <summary>
-    /// To get token
+    /// To get result token from login
     /// </summary>
     public class AdminResultModel
     {

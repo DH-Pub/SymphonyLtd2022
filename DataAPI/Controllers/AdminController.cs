@@ -72,11 +72,11 @@ namespace DataAPI.Controllers
         [HttpGet]
         public IActionResult GetAdmin(long id)
         {
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.Status = true;
+            ResultInfo resultInfo = new ResultInfo { Status = true };
             var admin = AdminDB.Instance.GetAdminById(id);
             resultInfo.Data = new
             {
+                // omit password when return back to front end
                 Id = admin.Id,
                 Name = admin.Name,
                 Email = admin.Email,
@@ -88,8 +88,7 @@ namespace DataAPI.Controllers
         [HttpGet]
         public IActionResult ShowAdmins(string search)
         {
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.Status = true;
+            ResultInfo resultInfo = new ResultInfo { Status = true };
             var admins = AdminDB.Instance.GetAllAdmins(search);
             resultInfo.Data = admins.Select(a => new { a.Id, a.Name, a.Email, a.Role, a.Details }).ToList(); // don't return password
             return Ok(resultInfo);
@@ -132,13 +131,13 @@ namespace DataAPI.Controllers
         {
             ResultInfo resultInfo = new ResultInfo();
             var checkAdmin = AdminDB.Instance.GetAdminById(adminPwd.Id);
-            if(checkAdmin == null)
+            if (checkAdmin == null)
             {
                 resultInfo.Message = "admin does not exist";
                 return Ok(resultInfo);
             }
             // Check old password
-            if(!CheckPassword(adminPwd.OldPassword, checkAdmin))
+            if (!CheckPassword(adminPwd.OldPassword, checkAdmin))
             {
                 resultInfo.Message = "Old password is incorrect";
                 return Ok(resultInfo);
