@@ -100,16 +100,28 @@
                                 <p>Create Exam</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-action="DetailsList" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Exam Details List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="CreateDetails" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Exam Details</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
-               
+
                 @if (User.IsInRole("Main") || User.IsInRole("Finance"))
                 {
                     <!--Payments-->
                     <li class="nav-item has-treeview">
                         <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-file-circle-exclamation"></i>
+                            <i class="nav-icon fas fa-receipt"></i>
                             <p>
                                 Payments
                                 <i class="right fas fa-angle-left"></i>
@@ -131,10 +143,10 @@
                         </ul>
                     </li>
                 }
-                                <!-- Student -->
+                <!-- Student -->
                 <li class="nav-item has-treeview">
                     <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-user-pen"></i>
                         <p>
                             Students
                             <i class="right fas fa-angle-left"></i>

@@ -85,5 +85,62 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
+
+        // For ExamDetails -------------------------------------------------------------------------------------------------------
+        public List<ExamDetailsWithReceipt> GetAllExamDetails()
+        {
+            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed JOIN [Payments] as p on ed.PaymentId = p.Id";
+            connection.Open();
+            List<ExamDetailsWithReceipt> result = connection.Query<ExamDetailsWithReceipt>(sql).ToList();
+            connection.Close();
+            return result;
+        }
+        public ExamDetailsWithReceipt GetExamDetailsById(long id)
+        {
+            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed JOIN [Payments] as p on ed.PaymentId = p.Id where ed.[Id]='" + id + "'";
+            connection.Open();
+            ExamDetailsWithReceipt result = connection.Query<ExamDetailsWithReceipt>(sql).FirstOrDefault();
+            connection.Close();
+            return result;
+        }
+        public bool CreateExamDetail(ExamDetail examDetail)
+        {
+            string sql = "insert into [ExamDetails](RollNumber, ExamId, PaymentId, Mark) values(@RollNumber, @ExamId, @PaymentId, @Mark)";
+            var param = new
+            {
+                RollNumber = examDetail.RollNumber,
+                ExamId = examDetail.ExamId,
+                PaymentId = examDetail.PaymentId,
+                Mark = examDetail.Mark
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
+        public bool UpdateExamDetail(ExamDetail examDetail)
+        {
+            string sql = "update [ExamDetails] set RollNumber=@RollNumber, ExamId=@ExamId, PaymentId=@PaymentId, Mark=@Mark where Id=@Id";
+            var param = new
+            {
+                Id = examDetail.Id,
+                RollNumber = examDetail.RollNumber,
+                ExamId = examDetail.ExamId,
+                PaymentId = examDetail.PaymentId,
+                Mark = examDetail.Mark
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
+        public bool DeleteExamDetail(long id)
+        {
+            string sql = "delete from [ExamDetails] where [Id]='" + id + "'";
+            connection.Open();
+            bool result = connection.Execute(sql) == 1;
+            connection.Close();
+            return result;
+        }
     }
 }

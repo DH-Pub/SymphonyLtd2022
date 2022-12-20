@@ -48,5 +48,42 @@ namespace DataAPI.Controllers
             resultInfo.Status = ExamDB.Instance.DeleteExam(id);
             return Ok(resultInfo);
         }
+
+        // For ExamDetails -------------------------------------------------------
+        [HttpGet]
+        public IActionResult GetExamDetail(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo { Status = true };
+            resultInfo.Data = ExamDB.Instance.GetExamDetailsById(id);
+            return Ok(resultInfo);
+        }
+        [HttpGet]
+        public IActionResult GetAllExamDetails()
+        {
+            ResultInfo resultInfo = new ResultInfo { Status = true };
+            resultInfo.Data = ExamDB.Instance.GetAllExamDetails();
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult CreateExamlDetail(ExamDetail examDetail)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ExamDB.Instance.CreateExamDetail(examDetail);
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult UpdateExamDetail(ExamDetail examDetail)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ExamDB.Instance.UpdateExamDetail(examDetail);
+            return Ok(resultInfo);
+        }
+        [HttpDelete]
+        public IActionResult DeleteExamDetail(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ExamDB.Instance.DeleteExamDetail(id);
+            return Ok(resultInfo);
+        }
     }
 }

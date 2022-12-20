@@ -8,7 +8,7 @@ namespace DataAPI.Data.Access
     {
         public static StudentDB _object;
         /// <summary>
-        /// Initiate AdminDB
+        /// Initiate StudentDB
         /// </summary>
         public static StudentDB Instance
         {

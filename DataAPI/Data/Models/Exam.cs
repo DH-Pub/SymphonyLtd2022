@@ -21,4 +21,29 @@
         public string Details { get; set; }
         public double Fee { get; set; }
     }
+
+    // ------------------------------------------------------------------------------------
+    /// <summary>
+    /// For ExamDetails table
+    /// </summary>
+    public class ExamDetail
+    {
+        public long Id { get; set; }
+        public string RollNumber { get; set; }
+        public string ExamId { get; set; }
+        public long PaymentId { get; set; }
+        public float Mark { get; set; }
+    }
+    /// <summary>
+    /// ExamDetails with ReceiptNumber From Payments
+    /// </summary>
+    public class ExamDetailsWithReceipt
+    {
+        public long Id { get; set; }
+        public string RollNumber { get; set; }
+        public string ExamId { get; set; }
+        public long PaymentId { get; set; }
+        public string ReceiptNumber { get; set; }
+        public float Mark { get; set; }
+    }
 }

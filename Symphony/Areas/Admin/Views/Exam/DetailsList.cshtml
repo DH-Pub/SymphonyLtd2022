@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.ExamDetailsWithReceipt>
+
+@{
+    ViewData["Title"] = "Details List";
+}
+
+<h1>Exam Details List</h1>
+
+<p>
+    <a asp-action="CreateDetails">Create New</a>
+</p>
+<table id="examDetails" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RollNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamId)
+            </th>
+            <th>
+                Receipt
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mark)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExamId)
+                </td>
+                <td>
+                    <p>Id: @Html.DisplayFor(modelItem => item.PaymentId)</p>
+                    <p>Receipt Number: @Html.DisplayFor(modelItem => item.ReceiptNumber)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mark)
+                    @if (item.Mark > 60)
+                    {
+                        <div>
+                            <p class="text-success">Pass</p>
+                            <p>-> Non-Basic Class</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <p class="text-danger">Failed</p>
+                            <p>-> Basic class</p>
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "UpdateDetails", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "DetailsShow", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteDetails", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        $(() => {
+            $('#examDetails').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                order: [[0, 'desc']],
+            })
+        })
+    </script>
+}
