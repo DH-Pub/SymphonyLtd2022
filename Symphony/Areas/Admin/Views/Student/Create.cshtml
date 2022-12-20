@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Create new student</h1>
+<div class="row">
+
+<form class="col-6 mx-auto">
+    <div class="form-group">
+        <label for="rollNumber">Roll number</label>
+        <input type="text" class="form-control" id="rollNumber" aria-describedby="emailHelp" placeholder="Enter Roll number">
+    </div>
+    <div class="form-group">
+        <label for="fullname">Fullname</label>
+        <input type="text" class="form-control" id="fullname" placeholder="Fullname">
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" placeholder="Address">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone number</label>
+        <input type="text" class="form-control" id="phone" placeholder="Phone number">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="birthdate">Birthdate</label>
+        <input type="date" class="form-control" id="birthdate" placeholder="">
+    </div>
+    <label for="gender">Gender</label>
+    <select class="custom-select my-1 mr-sm-2" id="gender">
+        <option selected>Choose...</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+    <div class="form-group">
+        <label for="image">Image</label><br/>
+        <input type="file" class="" id="image" placeholder="">
+    </div>
+    <button class="btn btn-primary" id="submitBtn">Submit</button>
+    <div id="errMess" class="text-danger"></div>
+</form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function(e){
+                e.preventDefault();
+                const image = $("#image");
+                const rollNumber = $("#rollNumber");
+                const fullname = $("#fullname");
+                const address = $("#address");
+                const phone = $("#phone");
+                const email = $("#email");
+                const birthdate = $("#birthdate");
+                const gender = $("#gender");
+                const formData = new FormData();
+                formData.append("RollNumber", rollNumber.val());
+                formData.append("FullName", fullname.val());
+                formData.append("Address", address.val());
+                formData.append("Phone", phone.val());
+                formData.append("Email", email.val());
+                formData.append("Gender", gender.val());
+                formData.append("BirthDate", birthdate.val());
+                formData.append("ImageName", image[0].files[0].name);
+                formData.append("Image", image[0].files[0]);
+                $.ajax({
+                    url: "https://localhost:7119/api/Student/AddStudent",
+                    type: "post",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result, status) {
+                        console.log(result);
+                        if (status == "success") {
+                            if (result.Status) {
+                                //chuyển về trang chủ
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student";
+                                //ghi token vào session
+                            } else {
+                                $("errMess").text("Cannot create new student! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
+}
