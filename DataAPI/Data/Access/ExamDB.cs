@@ -8,7 +8,7 @@ namespace DataAPI.Data.Access
     {
         public static ExamDB _object;
         /// <summary>
-        /// Initiate AdminDB
+        /// Initiate ExamDB
         /// </summary>
         public static ExamDB Instance
         {
@@ -89,7 +89,7 @@ namespace DataAPI.Data.Access
         // For ExamDetails -------------------------------------------------------------------------------------------------------
         public List<ExamDetailsWithReceipt> GetAllExamDetails()
         {
-            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed JOIN [Payments] as p on ed.PaymentId = p.Id";
+            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed LEFT JOIN [Payments] as p on ed.PaymentId = p.Id";
             connection.Open();
             List<ExamDetailsWithReceipt> result = connection.Query<ExamDetailsWithReceipt>(sql).ToList();
             connection.Close();
@@ -97,7 +97,7 @@ namespace DataAPI.Data.Access
         }
         public ExamDetailsWithReceipt GetExamDetailsById(long id)
         {
-            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed JOIN [Payments] as p on ed.PaymentId = p.Id where ed.[Id]='" + id + "'";
+            string sql = "SELECT ed.[Id] ,ed.[RollNumber],ed.[ExamId],ed.[PaymentId],p.[ReceiptNumber],ed.[Mark] FROM [ExamDetails] as ed LEFT JOIN [Payments] as p on ed.PaymentId = p.Id where ed.[Id]='" + id + "'";
             connection.Open();
             ExamDetailsWithReceipt result = connection.Query<ExamDetailsWithReceipt>(sql).FirstOrDefault();
             connection.Close();

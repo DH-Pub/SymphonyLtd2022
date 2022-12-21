@@ -31,8 +31,8 @@
         public long Id { get; set; }
         public string RollNumber { get; set; }
         public string ExamId { get; set; }
-        public long PaymentId { get; set; }
-        public float Mark { get; set; }
+        public long? PaymentId { get; set; }
+        public float? Mark { get; set; }
     }
     /// <summary>
     /// ExamDetails with ReceiptNumber From Payments

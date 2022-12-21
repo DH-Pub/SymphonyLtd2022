@@ -62,9 +62,9 @@ namespace Symphony.Areas.Admin.Models
         public string RollNumber { get; set; }
         [Required]
         public string ExamId { get; set; }
-        public long PaymentId { get; set; }
+        public long? PaymentId { get; set; }
         [Range(0, 100)]
-        public float Mark { get; set; }
+        public float? Mark { get; set; }
     }
     /// <summary>
     /// Show exam details with receipt number

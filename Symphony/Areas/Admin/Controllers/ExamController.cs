@@ -38,7 +38,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return View(result.Data);
             }
-            return View(new ExamCourseModel());
+            return RedirectToAction("Index");
         }
         public IActionResult Create()
         {
