@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         <label for="image">Image</label><br/>
-        <img id="image" src=""/>
+        <img style="width: 100px; height: 100px" id="image" src=""/>
     </div>
 </form>
 </div>
@@ -61,7 +61,7 @@
                     $("#fullname").val(res.Data.FullName);
                     $("#address").val(res.Data.Address);
                     $("#phone").val(res.Data.Phone);
-                    $("#birthdate").val(res.Data.BirthDate);
+                    $("#birthdate").val(res.Data.BirthDate.slice(0,10));
                     $("#gender").val(res.Data.Gender);
                     $("#email").val(res.Data.Email);
                     $("#image").attr("src","/images/"+res.Data.Image);
