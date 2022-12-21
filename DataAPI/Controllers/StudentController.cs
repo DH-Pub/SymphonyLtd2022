@@ -97,5 +97,29 @@ namespace DataAPI.Controllers
             resultInfo.Data = getStudentResult;
             return Ok(resultInfo);
         }
+        [HttpPost]
+        public IActionResult UpdateStudent([FromForm] Student student)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            var updateStudentResult = StudentDB.Instance.UpdateStudent(student);
+            if (!updateStudentResult)
+            {
+                resultInfo.Message = "Can not update information for this student!";
+                return Ok(resultInfo);
+            }
+            resultInfo.Status = true;
+            resultInfo.Message = "Update information successfully!";
+            resultInfo.Data = new
+            {
+                RollNumber = student.RollNumber,
+                FullName = student.FullName,
+                Email = student.Email,
+                Phone = student.Phone,
+                Gender = student.Gender,
+                BirthDate = student.BirthDate,
+                Image = student.ImageName
+            }; 
+            return Ok(resultInfo);
+        }
     }
 }

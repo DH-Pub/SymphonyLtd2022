@@ -62,6 +62,9 @@
             function DetailStudent(rollNo) {
                 window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student/Detail?rollNo=" + rollNo;
             }
+            function UpdateStudent(rollNo) {
+                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student/Update?rollNo=" + rollNo;
+            }
             $.ajax({
                 url: "https://localhost:7119/api/Student/GetAllStudents",
                 type: "get",

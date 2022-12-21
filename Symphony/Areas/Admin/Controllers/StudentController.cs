@@ -18,5 +18,9 @@ namespace Symphony.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult Update()
+        {
+            return View();
+        }
     }
 }

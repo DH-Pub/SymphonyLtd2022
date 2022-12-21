@@ -84,5 +84,24 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
+        public bool UpdateStudent(Student student)
+        {
+            string sql = "update [Students] set FullName=@FullName, Address=@Address, Email=@Email, Phone=@Phone, Gender=@Gender, BirthDate=@BirthDate, Image=@Image where RollNumber=@RollNumber";
+            var param = new
+            {
+                RollNumber = student.RollNumber,
+                FullName = student.FullName,
+                Address = student.Address,
+                Phone = student.Phone,
+                Email = student.Email,
+                Gender = student.Gender,
+                BirthDate = DateTime.Parse(student.BirthDate).Date,
+                Image = student.ImageName,
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
     }
 }
