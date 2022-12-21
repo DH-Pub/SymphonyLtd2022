@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Symphony.Areas.Admin.Models;
 using System.Net.Http.Headers;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Text.Json;
 namespace Symphony.Areas.Admin.Controllers
 {
     [Area("admin")]
+    [Authorize]
     public class ExamController : Controller
     {
         private const string _tokenName = "token";

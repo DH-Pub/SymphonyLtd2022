@@ -15,7 +15,6 @@ namespace DataAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize(Roles = "Main")]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationSettings _applicationSettings;
@@ -70,6 +69,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [Authorize]
         public IActionResult GetAdmin(long id)
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };
@@ -86,6 +86,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [Authorize(Roles = "Main")]
         public IActionResult ShowAdmins(string search)
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };
@@ -94,6 +95,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpPost]
+        [Authorize(Roles = "Main")]
         public IActionResult CreateAdmin(AdminCreate adminCreate)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -111,6 +113,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateAdminDetails(AdminUpdateDetails adminUpdate)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -127,6 +130,7 @@ namespace DataAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateAdminPassword(AdminUpdatePassword adminPwd)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -157,6 +161,7 @@ namespace DataAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Main")]
         public IActionResult DeleteAdmin(long id)
         {
             ResultInfo resultInfo = new ResultInfo();
