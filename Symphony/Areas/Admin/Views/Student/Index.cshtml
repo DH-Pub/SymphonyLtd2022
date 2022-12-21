@@ -51,38 +51,47 @@
                     data: JSON.stringify(req),
                     contentType: "application/json",
                     success: function (res, stt){
+                        if(stt != "success") return;
                         console.log(res);
                         console.log(stt);
-                        if(stt != "success") return;
+                        if (!res.Status) return;
                         location.reload();
                     }
                 })
+            }
+            function DetailStudent(rollNo) {
+                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student/Detail?rollNo=" + rollNo;
             }
             $.ajax({
                 url: "https://localhost:7119/api/Student/GetAllStudents",
                 type: "get",
                 success: function (result, status) {
-                    //for(let i = 0; i <= result.Data.length -1; i++){
-                    //    result.Data[i].BirthDate.
-                    //}
                     for (let i = 0; i <= result.Data.length - 1; i++){
                     var appendString = "<tr>\
-                                        <td>"+ result.Data[i].RollNumber + "</td>\
-                                        <td>"+ result.Data[i].FullName + "</td>\
+                                <td>"+ result.Data[i].RollNumber + "</td>\
+                                <td>"+ result.Data[i].FullName + "</td>\
                                 <td>"+ result.Data[i].Email + "</td>\
-                                        <td>"+ result.Data[i].Phone + "</td>\
-                                        <td>"+ result.Data[i].Gender + "</td>\
+                                <td>"+ result.Data[i].Phone + "</td>\
+                                <td>"+ result.Data[i].Gender + "</td>\
                                 <td>"+ result.Data[i].BirthDate.slice(0,10) + "</td>\
-                                                <td><img src='/images/"+ result.Data[i].Image+"' style='width: 45px; height: 45px'/></td>\
-                                                <td><button class='btn btn-secondary'><i class='fa fa-info-circle' aria-hidden='true'></i></button>&nbsp;\
-                                                <button class='btn btn-secondary'><i class='fa fa-pencil-square' aria-hidden='true'></i></button>&nbsp;\
-                                                                <button class='btn btn-secondary' id='removeBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-trash' aria-hidden='true'></i></button>\
+                                <td><img src='/images/"+ result.Data[i].Image+"' style='width: 45px; height: 45px'/></td>\
+                                <td><button class='btn btn-secondary' id='detailBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-info-circle' aria-hidden='true'></i></button>&nbsp;\
+                                <button class='btn btn-secondary' id='updateBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-pencil-square' aria-hidden='true'></i></button>&nbsp;\
+                                <button class='btn btn-secondary' id='removeBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-trash' aria-hidden='true'></i></button>\
                                 </td>\
                                 </tr>"
                     $("#body").append(appendString)
                         const removeBtn = $("#removeBtn" + result.Data[i].RollNumber);
                         removeBtn.click(function(){
                             RemoveStudent(result.Data[i].RollNumber);
+                        });
+                        const detailBtn = $("#detailBtn" + result.Data[i].RollNumber);
+                        detailBtn.click(function(){
+                            DetailStudent(result.Data[i].RollNumber);
+                        });
+                        const updateBtn = $("#updateBtn" + result.Data[i].RollNumber);
+                        updateBtn.click(function(){
+                            UpdateStudent(result.Data[i].RollNumber);
                         });
                     }
                 }

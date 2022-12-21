@@ -81,9 +81,7 @@
                         console.log(result);
                         if (status == "success") {
                             if (result.Status) {
-                                //chuyển về trang chủ
                                 window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student";
-                                //ghi token vào session
                             } else {
                                 $("errMess").text("Cannot create new student! Please check your input again.");
                             }

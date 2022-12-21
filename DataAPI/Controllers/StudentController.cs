@@ -59,7 +59,7 @@ namespace DataAPI.Controllers
                 return Ok(resultInfo);
             }
             resultInfo.Status = true;
-            resultInfo.Message = "A student is added!";
+            resultInfo.Message = "Get all students successfully!";
             resultInfo.Data = getAllStudentsResult.ToList();
             return Ok(resultInfo);
         }
@@ -80,6 +80,21 @@ namespace DataAPI.Controllers
             {
                 DeletedStudent = student.RollNumber
             };
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult GetStudentByRollNo(StudentToDelete student)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            var getStudentResult = StudentDB.Instance.GetStudentByRollNo(student.RollNumber);
+            if(getStudentResult == null)
+            {
+                resultInfo.Message = "Can not get this student!";
+                return Ok(resultInfo);
+            }
+            resultInfo.Status = true;
+            resultInfo.Message = "Get this student successfully!";
+            resultInfo.Data = getStudentResult;
             return Ok(resultInfo);
         }
     }

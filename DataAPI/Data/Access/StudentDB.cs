@@ -71,5 +71,18 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
+
+        public StudentToGet GetStudentByRollNo(string rollNo)
+        {
+            string sql = "select * from [Students] where RollNumber=@RollNumber";
+            var param = new
+            {
+                RollNumber = rollNo
+            };
+            connection.Open();
+            StudentToGet result = connection.Query<StudentToGet>(sql, param).FirstOrDefault();
+            connection.Close();
+            return result;
+        }
     }
 }
