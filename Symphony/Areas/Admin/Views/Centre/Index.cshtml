@@ -1,7 +1,99 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.CentreModel>
 @{
 }
 
 <h1>Centre Index</h1>
+<table id="student" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody id="body">
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function RemoveCentre(id) {
+                const cnfDel = confirm("Do you want to delete this centre?");
+                if (!cnfDel) return;
+                const req = {
+                    Id: id,
+                    Name: "",
+                    Address: "",
+                    Phone: "",
+                    Details: ""
+                }
+                $.ajax({
+                    url: "https://localhost:7119/api/Centre/DeleteCentre",
+                    type: "post",
+                    data: JSON.stringify(req),
+                    contentType: "application/json",
+                    success: function (res, stt) {
+                        if (stt != "success") return;
+                        if (!res.Status) return;
+                        location.reload();
+                    }
+                })
+            }
+            function DetailCentre(id) {
+                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Centre/Detail?Id=" + id;
+            }
+            function UpdateCentre(id) {
+                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Centre/Update?Id=" + id;
+            }
+            $.ajax({
+                url: "https://localhost:7119/api/Centre/GetAllCentres",
+                type: "get",
+                success: function (result, status) {
+                    for (let i = 0; i <= result.Data.length - 1; i++) {
+                        var appendString = "<tr>\
+                                        <td>"+ result.Data[i].Id + "</td>\
+                                        <td>"+ result.Data[i].Name + "</td>\
+                                        <td>"+ result.Data[i].Address + "</td>\
+                                        <td>"+ result.Data[i].Phone + "</td>\
+                                        <td>"+ result.Data[i].Details + "</td>\
+                                        <td><button class='btn btn-secondary' id='detailBtn"+ result.Data[i].Id + "'><i class='fa fa-info-circle' aria-hidden='true'></i></button>&nbsp;\
+                                                <button class='btn btn-secondary' id='updateBtn"+ result.Data[i].Id + "'><i class='fa fa-pencil-square' aria-hidden='true'></i></button>&nbsp;\
+                                                <button class='btn btn-secondary' id='removeBtn"+ result.Data[i].Id + "'><i class='fa fa-trash' aria-hidden='true'></i></button>\
+                                        </td>\
+                                        </tr>"
+                        $("#body").append(appendString)
+                        const removeBtn = $("#removeBtn" + result.Data[i].Id);
+                        removeBtn.click(function () {
+                            RemoveCentre(result.Data[i].Id);
+                        });
+                        const detailBtn = $("#detailBtn" + result.Data[i].Id);
+                        detailBtn.click(function () {
+                            DetailCentre(result.Data[i].Id);
+                        });
+                        const updateBtn = $("#updateBtn" + result.Data[i].Id);
+                        updateBtn.click(function () {
+                            UpdateCentre(result.Data[i].Id);
+                        });
+                    }
+                }
+            })
+        })
+
+    </script>
+}
