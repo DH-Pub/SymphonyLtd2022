@@ -1,0 +1,81 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Create new centre</h1>
+<div class="row">
+
+    <form class="col-6 mx-auto">
+        <div class="form-group">
+            <label for="Id">Id</label>
+            <input type="text" class="form-control" id="Id" placeholder="Enter centre ID">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Address">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="Phone number">
+        </div>
+        <div class="form-group">
+            <label for="detail">Detail</label>
+            <input type="text" class="form-control" id="detail" placeholder="Detail">
+        </div>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <div id="errMess" class="text-danger"></div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function (e) {
+                e.preventDefault();
+                const id = $("#Id");
+                const name = $("#name");
+                const address = $("#address");
+                const phone = $("#phone");
+                const detail = $("#detail");
+                const req = {
+                    Id: id.val(),
+                    Name: name.val(),
+                    Address: address.val(),
+                    Phone: phone.val(),
+                    Details: detail.val()
+                }
+                //const formData = new FormData();
+                //formData.append("Id", id.val());
+                //formData.append("Name", name.val());
+                //formData.append("Address", address.val());
+                //formData.append("Phone", phone.val());
+                //formData.append("Details", detail.val());
+                $.ajax({
+                    url: "https://localhost:7119/api/Centre/AddCentre",
+                    type: "post",
+                    data: JSON.stringify(req),
+                    contentType: "application/json",
+                    success: function (result, status) {
+                        console.log(result);
+                        if (status == "success") {
+                            if (result.Status) {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Centre";
+                            } else {
+                                $("errMess").text("Cannot create new centre! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
+}

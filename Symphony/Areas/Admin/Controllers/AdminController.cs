@@ -28,7 +28,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return View(result.Data);
             }
-            return View(new AdminShowModel());
+            return View(new List<AdminShowModel>());
         }
 
         // Create View
@@ -136,6 +136,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
+            ViewData["err"] = "Error, unable to delete";
             return RedirectToAction("Index");
         }
 

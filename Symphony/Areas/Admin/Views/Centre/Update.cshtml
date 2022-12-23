@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Update centre</h1>
+<div class="row">
+
+    <form class="col-6 mx-auto">
+        <div class="form-group">
+            <label for="Id">Id</label>
+            <input type="text" class="form-control" id="Id" placeholder="Enter centre ID" readonly>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Address">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="Phone number">
+        </div>
+        <div class="form-group">
+            <label for="detail">Detail</label>
+            <input type="text" class="form-control" id="detail" placeholder="Detail">
+        </div>
+        <a asp-action="Index" class="btn btn-primary ">Back to List</a>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <div id="errMess" class="text-danger"></div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let params = new URLSearchParams(document.location.search);
+            let id = params.get("Id");
+            const req = {
+                Id: id,
+                Name: "",
+                Address: "",
+                Phone: "",
+                Details: ""
+            }
+            $.ajax({
+                url: "https://localhost:7119/api/Centre/GetCentreById",
+                type: "post",
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                success: function (res, stt) {
+                    if (stt != "success") return;
+                    if (!res.Status) return;
+                    $("#Id").val(res.Data.Id);
+                    $("#name").val(res.Data.Name);
+                    $("#address").val(res.Data.Address);
+                    $("#phone").val(res.Data.Phone);
+                    $("#detail").val(res.Data.Details);
+                }
+            })
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function (e) {
+                e.preventDefault();
+                const id = $("#Id");
+                const name = $("#name");
+                const address = $("#address");
+                const phone = $("#phone");
+                const detail = $("#detail");
+                const req = {
+                    Id: id.val(),
+                    Name: name.val(),
+                    Address: address.val(),
+                    Phone: phone.val(),
+                    Details: detail.val()
+                }
+                $.ajax({
+                    url: "https://localhost:7119/api/Centre/UpdateCentre",
+                    type: "post",
+                    data: JSON.stringify(req),
+                    contentType: "application/json",
+                    success: function (result, status) {
+                        console.log(result);
+                        if (status == "success") {
+                            if (result.Status) {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Centre";
+                            } else {
+                                $("errMess").text("Cannot update information of this centre! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                })
+            })
+        })
+
+    </script>
+}

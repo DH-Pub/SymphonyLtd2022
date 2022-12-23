@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.ClassDetailWithReceiptModel>
+
+@{
+    ViewData["Title"] = "Class Details List";
+}
+
+<h1>Class Details List</h1>
+
+<p>
+    <a asp-action="CreateDetails">Create New</a>
+</p>
+<table id="classDetails" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RollNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceiptNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsLabSession)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RollNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassId)
+                </td>
+                <td>
+                    <p>ID: @Html.DisplayFor(modelItem => item.PaymentId)</p>
+                    <p>Receipt Number: @Html.DisplayFor(modelItem => item.ReceiptNumber)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsLabSession)
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "UpdateDetails", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "DetailsShow", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteDetails", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(() => {
+            $('#classDetails').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                order: [[0, 'desc']],
+            })
+        })
+    </script>
+}

@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using DataAPI.Data.Models;
-using DataAPI.Models;
 using System.Data.SqlClient;
 
 namespace DataAPI.Data.Access

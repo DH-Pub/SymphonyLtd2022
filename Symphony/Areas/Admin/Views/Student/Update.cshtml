@@ -1,0 +1,130 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Update student</h1>
+<div class="row">
+
+    <form class="col-6 mx-auto">
+        <div class="form-group">
+            <label for="rollNumber">Roll number</label>
+            <input type="text" class="form-control" id="rollNumber" aria-describedby="emailHelp" placeholder="Enter Roll number" disabled>
+        </div>
+        <div class="form-group">
+            <label for="fullname">Fullname</label>
+            <input type="text" class="form-control" id="fullname" placeholder="Fullname">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Address">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="Phone number">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="date" class="form-control" id="birthdate" placeholder="">
+        </div>
+        <label for="gender">Gender</label>
+        <select class="custom-select my-1 mr-sm-2" id="gender">
+            <option selected>Choose...</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <div class="form-group">
+            <label for="image">Image</label><br />
+            <input type="file" class="" id="image" placeholder=""><br /><br />
+            <img style="width: 100px; height: 100px" id="imageShow" src="" />
+        </div>
+        <a asp-action="Index" class="btn btn-primary ">Back to List</a>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <div id="errMess" class="text-danger"></div>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let params = new URLSearchParams(document.location.search);
+            let rollNo = params.get("rollNo");
+            const req = {
+                RollNumber: rollNo
+            }
+            $.ajax({
+                url: "https://localhost:7119/api/Student/GetStudentByRollNo",
+                type: "post",
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                success: function (res, stt) {
+                    if (stt != "success") return;
+                    if (!res.Status) return;
+                    var dob = new Date(res.Data.BirthDate).toLocaleDateString().split("/");
+                    var birthdate = dob[2] + "-" + ("0" + dob[0]).slice(-2) + "-" + ("0" + dob[1]).slice(-2);
+                    $("#rollNumber").val(res.Data.RollNumber);
+                    $("#fullname").val(res.Data.FullName);
+                    $("#address").val(res.Data.Address);
+                    $("#phone").val(res.Data.Phone);
+                    $("#birthdate").val(birthdate);
+                    $("#gender").val(res.Data.Gender);
+                    $("#email").val(res.Data.Email);
+                    $("#imageShow").attr("src", "/images/" + res.Data.Image);
+                }
+            })
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function (e) {
+                e.preventDefault();
+                const image = $("#image");
+                const rollNumber = $("#rollNumber");
+                const fullname = $("#fullname");
+                const address = $("#address");
+                const phone = $("#phone");
+                const email = $("#email");
+                const birthdate = $("#birthdate");
+                const gender = $("#gender");
+                const formData = new FormData();
+                formData.append("RollNumber", rollNumber.val());
+                formData.append("FullName", fullname.val());
+                formData.append("Address", address.val());
+                formData.append("Phone", phone.val());
+                formData.append("Email", email.val());
+                formData.append("Gender", gender.val());
+                formData.append("BirthDate", birthdate.val());
+                formData.append("ImageName", image[0].files[0].name);
+                formData.append("Image", image[0].files[0]);
+                $.ajax({
+                    url: "https://localhost:7119/api/Student/UpdateStudent",
+                    type: "post",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result, status) {
+                        console.log(result);
+                        if (status == "success") {
+                            if (result.Status) {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student";
+                            } else {
+                                $("errMess").text("Cannot update information! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                });
+            })
+            $("#image").change(function(){
+                const img = document.getElementById("imageShow");
+                img.src = URL.createObjectURL(this.files[0]);
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src);
+                }
+            })
+        })
+
+    </script>
+}

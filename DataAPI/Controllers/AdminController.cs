@@ -15,7 +15,6 @@ namespace DataAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize(Roles = "Main")]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationSettings _applicationSettings;
@@ -70,13 +69,14 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [Authorize]
         public IActionResult GetAdmin(long id)
         {
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.Status = true;
+            ResultInfo resultInfo = new ResultInfo { Status = true };
             var admin = AdminDB.Instance.GetAdminById(id);
             resultInfo.Data = new
             {
+                // omit password when return back to front end
                 Id = admin.Id,
                 Name = admin.Name,
                 Email = admin.Email,
@@ -86,15 +86,16 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [Authorize(Roles = "Main")]
         public IActionResult ShowAdmins(string search)
         {
-            ResultInfo resultInfo = new ResultInfo();
-            resultInfo.Status = true;
+            ResultInfo resultInfo = new ResultInfo { Status = true };
             var admins = AdminDB.Instance.GetAllAdmins(search);
             resultInfo.Data = admins.Select(a => new { a.Id, a.Name, a.Email, a.Role, a.Details }).ToList(); // don't return password
             return Ok(resultInfo);
         }
         [HttpPost]
+        [Authorize(Roles = "Main")]
         public IActionResult CreateAdmin(AdminCreate adminCreate)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -112,6 +113,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateAdminDetails(AdminUpdateDetails adminUpdate)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -128,17 +130,18 @@ namespace DataAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult UpdateAdminPassword(AdminUpdatePassword adminPwd)
         {
             ResultInfo resultInfo = new ResultInfo();
             var checkAdmin = AdminDB.Instance.GetAdminById(adminPwd.Id);
-            if(checkAdmin == null)
+            if (checkAdmin == null)
             {
                 resultInfo.Message = "admin does not exist";
                 return Ok(resultInfo);
             }
             // Check old password
-            if(!CheckPassword(adminPwd.OldPassword, checkAdmin))
+            if (!CheckPassword(adminPwd.OldPassword, checkAdmin))
             {
                 resultInfo.Message = "Old password is incorrect";
                 return Ok(resultInfo);
@@ -158,6 +161,7 @@ namespace DataAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Main")]
         public IActionResult DeleteAdmin(long id)
         {
             ResultInfo resultInfo = new ResultInfo();
