@@ -91,5 +91,68 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
+
+        // For ClassDetails -----------------------------------------------------------------------------------
+        public List<ClassDetailWithReceipt> GetAllClassDetails()
+        {
+            string sql = "SELECT cd.[Id],[RollNumber],[ClassId],[PaymentId],[ReceiptNumber],cd.[Details],[IsPass],[IsLabSession] " +
+                "FROM [ClassDetails] as cd LEFT JOIN [Payments] as p on cd.PaymentId=p.Id ";
+            connection.Open();
+            List<ClassDetailWithReceipt> result = connection.Query<ClassDetailWithReceipt>(sql).ToList();
+            connection.Close();
+            return result;
+        }
+        public ClassDetailWithReceipt GetClassDetailById(long id)
+        {
+            string sql = "SELECT cd.[Id],[RollNumber],[ClassId],[PaymentId],[ReceiptNumber],cd.[Details],[IsPass],[IsLabSession] " +
+                "FROM [ClassDetails] as cd LEFT JOIN [Payments] as p on cd.PaymentId=p.Id WHERE cd.[Id]='" + id + "'";
+            connection.Open();
+            ClassDetailWithReceipt result = connection.Query<ClassDetailWithReceipt>(sql).FirstOrDefault();
+            connection.Close();
+            return result;
+        }
+        public bool CreateClassDetail(ClassDetail classDetail)
+        {
+            string sql = "insert into [ClassDetails](RollNumber, ClassId, PaymentId, Details, IsPass, IsLabSession) values(@RollNumber, @ClassId, @PaymentId, @Details, @IsPass, @IsLabSession)";
+            var param = new
+            {
+                RollNumber = classDetail.RollNumber,
+                ClassId = classDetail.ClassId,
+                PaymentId = classDetail.PaymentId,
+                Details = classDetail.Details,
+                IsPass = classDetail.IsPass,
+                IsLabSession = classDetail.IsLabSession,
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
+        public bool UpdateClassDetail(ClassDetail classDetail)
+        {
+            string sql = "update [ClassDetails] set RollNumber=@RollNumber, ClassId=@ClassId, PaymentId=@PaymentId, Details=@Details, IsPass=@IsPass, IsLabSession=@IsLabSession where Id=@Id";
+            var param = new
+            {
+                Id = classDetail.Id,
+                RollNumber = classDetail.RollNumber,
+                ClassId = classDetail.ClassId,
+                PaymentId = classDetail.PaymentId,
+                Details = classDetail.Details,
+                IsPass = classDetail.IsPass,
+                IsLabSession = classDetail.IsLabSession,
+            };
+            connection.Open();
+            bool result = connection.Execute(sql, param) == 1;
+            connection.Close();
+            return result;
+        }
+        public bool DeleteClassDetail(long id)
+        {
+            string sql = "delete from [ClassDetails] where [Id]='" + id + "'";
+            connection.Open();
+            bool result = connection.Execute(sql) == 1;
+            connection.Close();
+            return result;
+        }
     }
 }

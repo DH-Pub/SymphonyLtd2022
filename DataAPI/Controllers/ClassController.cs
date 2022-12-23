@@ -49,5 +49,42 @@ namespace DataAPI.Controllers
             resultInfo.Status = ClassDB.Instance.DeleteClass(id);
             return Ok(resultInfo);
         }
+
+        // For ClassDetails -------------------------------------------------------------------------------
+        [HttpGet]
+        public IActionResult GetClassDetail(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo { Status = true };
+            resultInfo.Data = ClassDB.Instance.GetClassDetailById(id);
+            return Ok(resultInfo);
+        }
+        [HttpGet]
+        public IActionResult GetAllClassDetails()
+        {
+            ResultInfo resultInfo = new ResultInfo { Status = true };
+            resultInfo.Data = ClassDB.Instance.GetAllClassDetails();
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult CreateClassDetail(ClassDetail classDetail)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ClassDB.Instance.CreateClassDetail(classDetail);
+            return Ok(resultInfo);
+        }
+        [HttpPost]
+        public IActionResult UpdateClassDetail(ClassDetail classDetail)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ClassDB.Instance.UpdateClassDetail(classDetail);
+            return Ok(resultInfo);
+        }
+        [HttpDelete]
+        public IActionResult DeleteCLassDetail(long id)
+        {
+            ResultInfo resultInfo = new ResultInfo();
+            resultInfo.Status = ClassDB.Instance.DeleteClassDetail(id);
+            return Ok(resultInfo);
+        }
     }
 }

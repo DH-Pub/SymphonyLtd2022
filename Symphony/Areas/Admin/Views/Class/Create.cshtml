@@ -18,12 +18,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <input type="date" asp-for="StartDate" class="form-control" />
+                <input type="date" asp-for="StartDate" class="form-control" onchange="minDate()" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
-                <input type="date" asp-for="EndDate" class="form-control" />
+                <input type="date" asp-for="EndDate" class="form-control" onchange="maxDate()" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -68,5 +68,20 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(() => {
+
+        })
+        function minDate() {
+            var min = $("#StartDate")[0].value;
+            $("#EndDate").attr("min", min);
+        }
+        function maxDate() {
+            var max = $("#EndDate")[0].value;
+            $("#StartDate").attr("max", max);
+        }
+    </script>
 }

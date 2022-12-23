@@ -141,7 +141,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return View(result.Data);
             }
-            return View(new ExamDetailsWithReceiptApi());
+            return RedirectToAction("DetailsList");
         }
         public IActionResult CreateDetails()
         {
