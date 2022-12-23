@@ -1,0 +1,48 @@
+﻿@model Symphony.Areas.Admin.Models.FAQCreateModel
+
+@{
+    ViewData["Title"] = "Add FAQ";
+}
+
+<h1>ADD FAQ</h1>
+
+<div class="row">
+    <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 offset-md-1 col-md-10">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question" class="control-label"></label>
+                <textarea asp-for="Question" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Answer" class="control-label"></label>
+                <textarea asp-for="Answer" class="form-control" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Register Admin" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(() => {
+
+        });
+    </script>
+}
