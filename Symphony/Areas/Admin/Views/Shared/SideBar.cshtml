@@ -281,6 +281,56 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- FAQ -->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fa fa-question-circle" aria-hidden="true"></i>
+                        <p>
+                            FAQ's
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="FAQ" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View FAQ list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="FAQ" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new FAQ</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- About -->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fa fa-info-circle" aria-hidden="true"></i>
+                        <p>
+                            About Us
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="About" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View About Us list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="About" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new About Us</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

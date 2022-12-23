@@ -11,11 +11,11 @@ namespace DataAPI.Controllers
     public class AboutController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAbout(int Number)
+        public IActionResult GetAbout(int id)
         {
             ResultInfo resultInfo = new ResultInfo();
             resultInfo.Status = true;
-            var about = AboutDB.Instance.GetAboutByNumber(Number);
+            var about = AboutDB.Instance.GetAboutByNumber(id);
             resultInfo.Data = new
             {
                 Number = about.Number,
@@ -47,7 +47,7 @@ namespace DataAPI.Controllers
             }
             resultInfo.Status = true;
             resultInfo.Message = "Thanh cong";
-            resultInfo.Data = Model;
+           
             return Ok(resultInfo);
 
         }
