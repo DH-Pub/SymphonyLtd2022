@@ -29,12 +29,12 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
 
                 <!-- Admin -->
                 <li class="nav-item has-treeview">
                     <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-lock fa-duotone"></i>
                         <p>
                             Admins
                             <i class="right fas fa-angle-left"></i>
@@ -78,6 +78,209 @@
                     </ul>
                 </li>
 
+                <!--Courses-->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Courses
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Course" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Course List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Course" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Course</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Classes-->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-chalkboard"></i>
+                        <p>
+                            Classes
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Class" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Class List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Class" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Classes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="DetailsList" asp-controller="Class" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Class Details List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="CreateDetails" asp-controller="Class" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Class Details</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--Exams-->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-file-circle-exclamation"></i>
+                        <p>
+                            Entrance Examinations
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Exam List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Exam</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="DetailsList" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View Exam Details List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="CreateDetails" asp-controller="Exam" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Exam Details</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                @if (User.IsInRole("Main") || User.IsInRole("Finance"))
+                {
+                    <!--Payments-->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-receipt"></i>
+                            <p>
+                                Payments
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-2">
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Payment" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Payment List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Create" asp-controller="Payment" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create Payment</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                
+
+                <!-- Student -->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-user-pen"></i>
+                        <p>
+                            Students
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Student" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View student list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Student" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new student</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Centre -->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fa fa-building" aria-hidden="true"></i>
+                        <p>
+                            Centres
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Centre" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View centre list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Centre" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new centre</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Teacher -->
+                <li class="nav-item has-treeview">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fa fa-building" aria-hidden="true"></i>
+                        <p>
+                            Teachers
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-2">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Teacher" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View teacher list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Create" asp-controller="Teacher" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create new teacher</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

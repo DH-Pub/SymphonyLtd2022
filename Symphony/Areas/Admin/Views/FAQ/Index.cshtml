@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.FAQ>
+
+
+@{
+    ViewData["Title"] = "FAQ Index";
+}
+
+<table id="faq" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer)
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "Update", new {id=item.Number}) |
+                    @Html.ActionLink("Details", "Details", new {id=item.Number}) |
+                    @Html.ActionLink("Delete", "Delete", new {id=item.Number})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        $(() => {
+            $('#faq').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                order: [[0, 'desc']],
+            })
+        })
+    </script>
+}
