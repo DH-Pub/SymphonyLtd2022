@@ -1,0 +1,107 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Update teacher</h1>
+<div class="row">
+        <form class="col-6 mx-auto">
+            <div class="form-group">
+                <label for="Id">Id</label>
+                <input type="text" class="form-control" id="Id" placeholder="Enter centre ID" readonly>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="text" class="form-control" id="phone" placeholder="Phone number">
+            </div>
+            <label for="gender">Gender</label>
+            <select class="custom-select my-1 mr-sm-2" id="gender">
+                <option selected>Choose...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <div class="form-group">
+                <label for="birthdate">Birthdate</label>
+                <input type="date" class="form-control" id="birthdate" placeholder="Birthdate">
+            </div>
+        <a asp-action="Index" class="btn btn-primary ">Back to List</a>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <div id="errMess" class="text-danger"></div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let params = new URLSearchParams(document.location.search);
+            let id = params.get("Id");
+            const req = {
+                Id: id,
+            }
+            $.ajax({
+                url: "https://localhost:7119/api/Teacher/GetTeacherById",
+                type: "post",
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                success: function (res, stt) {
+                    if (stt != "success") return;
+                    if (!res.Status) return;
+                    $("#Id").val(res.Data.Id);
+                    $("#name").val(res.Data.Name);
+                    $("#email").val(res.Data.Email);
+                    $("#phone").val(res.Data.Phone);
+                    $("#gender").val(res.Data.Gender);
+                    var dob = new Date(res.Data.BirthDate).toLocaleDateString().split("/");
+                    var birthdate = dob[2] + "-" + ("0" + dob[0]).slice(-2) + "-" + ("0" + dob[1]).slice(-2);
+                    $("#birthdate").val(birthdate);
+                }
+            })
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function (e) {
+                e.preventDefault();
+                const id = $("#Id");
+                const name = $("#name");
+                const email = $("#email");
+                const phone = $("#phone");
+                const gender = $("#gender");
+                const birthdate = $("#birthdate")
+                const req = {
+                    Id: id.val(),
+                    Name: name.val(),
+                    Email: email.val(),
+                    Phone: phone.val(),
+                    Gender: gender.val(),
+                    BirthDate: birthdate.val()
+                }
+                $.ajax({
+                    url: "https://localhost:7119/api/Teacher/UpdateTeacher",
+                    type: "post",
+                    data: JSON.stringify(req),
+                    contentType: "application/json",
+                    success: function (result, status) {
+                        console.log(result);
+                        if (status == "success") {
+                            if (result.Status) {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Teacher";
+                            } else {
+                                $("errMess").text("Cannot update information of this teacher! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                })
+            })
+        })
+
+    </script>
+}
