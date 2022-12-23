@@ -1,0 +1,79 @@
+﻿
+<h1>Create new teacher</h1>
+<div class="row">
+
+    <form class="col-6 mx-auto">
+        <div class="form-group">
+            <label for="Id">ID</label>
+            <input type="text" class="form-control" id="Id"placeholder="Enter ID">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Fullname">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="Phone number">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="date" class="form-control" id="birthdate">
+        </div>
+        <label for="gender">Gender</label>
+        <select class="custom-select my-1 mr-sm-2" id="gender">
+            <option selected>Choose...</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+        <div id="errMess" class="text-danger"></div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const submitBtn = $("#submitBtn");
+            submitBtn.click(function (e) {
+                e.preventDefault();
+                const id = $("#Id").val();
+                const name = $("#name").val();
+                const phone = $("#phone").val();
+                const email = $("#email").val();
+                const birthdate = $("#birthdate").val();
+                const gender = $("#gender").val();
+                const req = {
+                    Id: id,
+                    Name: name,
+                    Phone: phone,
+                    Email: email,
+                    Gender: gender,
+                    BirthDate: birthdate
+                }
+                $.ajax({
+                    url: "https://localhost:7119/api/Teacher/AddTeacher",
+                    type: "post",
+                    data: JSON.stringify(req),
+                    contentType: "application/json",
+                    success: function (result, status) {
+                        if (status == "success") {
+                            if (result.Status) {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Teacher";
+                            } else {
+                                $("errMess").text("Cannot create new teacher! Please check your input again.");
+                            }
+                        } else {
+                            $("errMess").text("Something wrong! Please try again.");
+                        }
+                    }
+                });
+            })
+        })
+
+    </script>
+}

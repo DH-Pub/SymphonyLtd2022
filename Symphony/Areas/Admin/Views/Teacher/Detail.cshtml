@@ -1,0 +1,62 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Teacher detail</h1>
+<div>
+    <form class="col-6 mx-auto">
+        <div class="form-group">
+            <label for="Id">Id</label>
+            <input type="text" class="form-control" id="Id" placeholder="Enter centre ID" readonly>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Email" readonly>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" placeholder="Phone number" readonly>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" class="form-control" id="gender" placeholder="Gender" readonly>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="text" class="form-control" id="birthdate" placeholder="Birthdate" readonly>
+        </div>
+        <a asp-action="Index" class="btn btn-primary ">Back to List</a>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let params = new URLSearchParams(document.location.search);
+            let id = params.get("Id");
+            const req = {
+                Id: id
+            }
+            $.ajax({
+                url: "https://localhost:7119/api/Teacher/GetTeacherById",
+                type: "post",
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                success: function (res, stt) {
+                    if (stt != "success") return;
+                    if (!res.Status) return;
+                    $("#Id").val(res.Data.Id);
+                    $("#name").val(res.Data.Name);
+                    $("#email").val(res.Data.Email);
+                    $("#phone").val(res.Data.Phone);
+                    $("#gender").val(res.Data.Gender);
+                    $("#birthdate").val(res.Data.BirthDate.slice(0,10));
+                }
+            })
+        })
+    </script>
+}
