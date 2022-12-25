@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
+    [Authorize]
     public class CentreController : ControllerBase
     {
         [HttpPost]

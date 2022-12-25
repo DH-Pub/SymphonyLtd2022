@@ -1,31 +1,31 @@
-﻿@model IEnumerable<Symphony.Areas.Admin.Models.StudentModel>
-@{
-}
-<h1 class="p-3">Student list</h1>
+﻿<h1 class="p-3">Student list</h1>
 
 <table id="student" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RollNumber)
+                Roll number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                Fullname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Phone number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                Gender
             </th>
             <th>
-            @Html.DisplayNameFor(model => model.ImageName)
+                Birth date
+            </th>
+            <th>
+                Image
             </th>
             <th>
                 Action
@@ -46,9 +46,12 @@
                     RollNumber: rollNo
                 }
                 $.ajax({
-                    url: "https://localhost:7119/api/Student/DeleteStudent",
+                    url: "@(Program.ApiAddress)api/Student/DeleteStudent",
                     type: "post",
                     data: JSON.stringify(req),
+                    headers: {
+                        "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     contentType: "application/json",
                     success: function (res, stt){
                         if(stt != "success") return;
@@ -66,7 +69,7 @@
                 window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Student/Update?rollNo=" + rollNo;
             }
             $.ajax({
-                url: "https://localhost:7119/api/Student/GetAllStudents",
+                url: "@(Program.ApiAddress)api/Student/GetAllStudents",
                 type: "get",
                 success: function (result, status) {
                     for (let i = 0; i <= result.Data.length - 1; i++){
@@ -75,9 +78,10 @@
                                 <td>"+ result.Data[i].FullName + "</td>\
                                 <td>"+ result.Data[i].Email + "</td>\
                                 <td>"+ result.Data[i].Phone + "</td>\
+                                <td>"+ result.Data[i].Address + "</td>\
                                 <td>"+ result.Data[i].Gender + "</td>\
                                 <td>"+ result.Data[i].BirthDate.slice(0,10) + "</td>\
-                                <td><img src='/images/"+ result.Data[i].Image+"' style='width: 45px; height: 45px'/></td>\
+                                <td><img src='"+ result.Data[i].Image+"' style='width: 45px; height: 45px'/></td>\
                                 <td><button class='btn btn-secondary' id='detailBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-info-circle' aria-hidden='true'></i></button>&nbsp;\
                                 <button class='btn btn-secondary' id='updateBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-pencil-square' aria-hidden='true'></i></button>&nbsp;\
                                 <button class='btn btn-secondary' id='removeBtn"+ result.Data[i].RollNumber + "'><i class='fa fa-trash' aria-hidden='true'></i></button>\
