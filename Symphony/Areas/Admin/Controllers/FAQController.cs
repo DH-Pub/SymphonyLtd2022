@@ -12,6 +12,7 @@ using System.Text.Json;
 namespace Symphony.Areas.Admin.Controllers
 {
     [Area("admin")]
+    [Authorize]
     public class FAQController : Controller
     {
         private const string _tokenName = "token";

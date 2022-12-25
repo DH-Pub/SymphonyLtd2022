@@ -1,6 +1,7 @@
 ﻿using DataAPI.Data.Access;
 using DataAPI.Data.Models;
 using DataAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

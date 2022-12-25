@@ -3,14 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using DataAPI.Data.Models;
 using DataAPI.Data.Access;
 using DataAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class FAQController : ControllerBase
     {
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetFAQ(int id)
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -26,6 +29,7 @@ namespace DataAPI.Controllers
             return Ok(resultInfo);
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ShowFAQs(string search)
         {
             ResultInfo resultInfo = new ResultInfo();
