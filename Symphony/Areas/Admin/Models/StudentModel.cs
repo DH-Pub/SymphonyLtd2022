@@ -10,5 +10,6 @@
         public string Gender { get; set; }
         public string BirthDate { get; set; }
         public string ImageName { get; set; }
+        public string Token { get; set; }
     }
 }

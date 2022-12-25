@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseStaticFiles();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
@@ -70,3 +70,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{
+    public static string ApiAddress = "https://localhost:7119/";
+}

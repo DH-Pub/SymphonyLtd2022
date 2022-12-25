@@ -1,28 +1,26 @@
-﻿@model IEnumerable<Symphony.Areas.Admin.Models.TeacherModel>
-@{
-}
-
-<h1>Teacher Index</h1>
+﻿
+<h1 class="p-3">Teacher Index</h1>
 <table id="student" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Fullname
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Phone number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                Gender
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                Birth date
             </th>
             <th>
                 Action
@@ -43,9 +41,12 @@
                     Id: id
                 }
                 $.ajax({
-                    url: "https://localhost:7119/api/Teacher/DeleteTeacher",
+                    url: "@(Program.ApiAddress)api/Teacher/DeleteTeacher",
                     type: "post",
                     data: JSON.stringify(req),
+                    headers: {
+                        "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     contentType: "application/json",
                     success: function (res, stt) {
                         if (stt != "success") return;
@@ -61,7 +62,7 @@
                 window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Teacher/Update?Id=" + id;
             }
             $.ajax({
-                url: "https://localhost:7119/api/Teacher/GetAllTeachers",
+                url: "@(Program.ApiAddress)api/Teacher/GetAllTeachers",
                 type: "get",
                 success: function (result, status) {
                     for (let i = 0; i <= result.Data.length - 1; i++) {

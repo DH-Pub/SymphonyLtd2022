@@ -1,14 +1,15 @@
 ﻿using DataAPI.Data.Access;
 using DataAPI.Data.Models;
 using DataAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DataAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class StudentController : Controller
     {
         [HttpPost]
@@ -25,11 +26,8 @@ namespace DataAPI.Controllers
             // getting file original name
             string FileName = model.Image.FileName;
 
-            // combining GUID to create unique name before saving in wwwroot
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + FileName;
-
             // getting full path inside wwwroot/images
-            var imagePath = Path.Combine(Directory.GetCurrentDirectory().Replace("DataAPI", "Symphony"), "wwwroot/images/", FileName);
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", FileName);
 
             // copying file
             model.Image.CopyTo(new FileStream(imagePath, FileMode.Create));
@@ -49,6 +47,7 @@ namespace DataAPI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllStudents()
         {
             ResultInfo resultInfo = new ResultInfo();
@@ -60,7 +59,11 @@ namespace DataAPI.Controllers
             }
             resultInfo.Status = true;
             resultInfo.Message = "Get all students successfully!";
-            resultInfo.Data = getAllStudentsResult.ToList();
+            foreach (var student in getAllStudentsResult)
+            {
+                student.Image = Program.ApiAddress + "/images/" + student.Image;
+            }
+            resultInfo.Data = getAllStudentsResult;
             return Ok(resultInfo);
         }
 
@@ -94,6 +97,7 @@ namespace DataAPI.Controllers
             }
             resultInfo.Status = true;
             resultInfo.Message = "Get this student successfully!";
+            getStudentResult.Image = Program.ApiAddress + "/images/" + getStudentResult.Image;
             resultInfo.Data = getStudentResult;
             return Ok(resultInfo);
         }
@@ -106,6 +110,20 @@ namespace DataAPI.Controllers
             {
                 resultInfo.Message = "Can not update information for this student!";
                 return Ok(resultInfo);
+            }
+            if (student.Image == null) { 
+                student.ImageName = "";
+            }
+            else
+            {
+                // getting file original name
+                string FileName = student.Image.FileName;
+
+                // getting full path inside wwwroot/images
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/", FileName);
+
+                // copying file
+                student.Image.CopyTo(new FileStream(imagePath, FileMode.Create));
             }
             resultInfo.Status = true;
             resultInfo.Message = "Update information successfully!";

@@ -1,25 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Symphony.Areas.Admin.Controllers
 {
     [Area("admin")]
+    [Authorize]
     public class CentreController : Controller
     {
+        private const string _tokenName = "token";
         public IActionResult Index()
         {
-            return View();
+            string token = Request.Cookies[_tokenName];
+            ViewBag.Token = token;
+            return View(ViewBag);
         }
         public IActionResult Create()
         {
-            return View();
+            string token = Request.Cookies[_tokenName];
+            ViewBag.Token = token;
+            return View(ViewBag);
         }
         public IActionResult Detail()
         {
-            return View();
+            string token = Request.Cookies[_tokenName];
+            ViewBag.Token = token;
+            return View(ViewBag);
         }
         public IActionResult Update()
         {
-            return View();
+            string token = Request.Cookies[_tokenName];
+            ViewBag.Token = token;
+            return View(ViewBag);
         }
     }
 }

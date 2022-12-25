@@ -1,9 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Update student</h1>
+﻿
+<h1 class="p-3">Update student</h1>
 <div class="row">
 
     <form class="col-6 mx-auto">
@@ -51,15 +47,19 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            let oldImage = "";
             let params = new URLSearchParams(document.location.search);
             let rollNo = params.get("rollNo");
             const req = {
                 RollNumber: rollNo
             }
             $.ajax({
-                url: "https://localhost:7119/api/Student/GetStudentByRollNo",
+                url: "@(Program.ApiAddress)api/Student/GetStudentByRollNo",
                 type: "post",
                 data: JSON.stringify(req),
+                headers: {
+                    "Authorization": "Bearer " + "@ViewBag.Token"
+                },
                 contentType: "application/json",
                 success: function (res, stt) {
                     if (stt != "success") return;
@@ -73,7 +73,8 @@
                     $("#birthdate").val(birthdate);
                     $("#gender").val(res.Data.Gender);
                     $("#email").val(res.Data.Email);
-                    $("#imageShow").attr("src", "/images/" + res.Data.Image);
+                    $("#imageShow").attr("src", res.Data.Image);
+                    oldImage = res.Data.Image.slice(31);
                 }
             })
             const submitBtn = $("#submitBtn");
@@ -95,12 +96,20 @@
                 formData.append("Email", email.val());
                 formData.append("Gender", gender.val());
                 formData.append("BirthDate", birthdate.val());
-                formData.append("ImageName", image[0].files[0].name);
+                if(!image[0].files[0]){
+                    formData.append("ImageName", oldImage);
+                }
+                else {
+                    formData.append("ImageName", image[0].files[0]?.name);
+                }
                 formData.append("Image", image[0].files[0]);
                 $.ajax({
-                    url: "https://localhost:7119/api/Student/UpdateStudent",
+                    url: "@(Program.ApiAddress)api/Student/UpdateStudent",
                     type: "post",
                     data: formData,
+                    headers: {
+                        "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     processData: false,
                     contentType: false,
                     success: function (result, status) {
