@@ -1,9 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Create new student</h1>
+﻿
+<h1 class="p-3">Create new student</h1>
 <div class="row">
 
 <form class="col-6 mx-auto">
@@ -72,11 +68,14 @@
                 formData.append("ImageName", image[0].files[0].name);
                 formData.append("Image", image[0].files[0]);
                 $.ajax({
-                    url: "https://localhost:7119/api/Student/AddStudent",
+                    url: "@(Program.ApiAddress)api/Student/AddStudent",
                     type: "post",
                     data: formData,
                     processData: false,
                     contentType: false,
+                    headers: {
+                        "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     success: function (result, status) {
                         console.log(result);
                         if (status == "success") {

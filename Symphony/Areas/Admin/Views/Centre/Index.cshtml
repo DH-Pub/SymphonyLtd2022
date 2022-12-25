@@ -1,25 +1,21 @@
-﻿@model IEnumerable<Symphony.Areas.Admin.Models.CentreModel>
-@{
-}
-
-<h1>Centre Index</h1>
+﻿<h1 class="p-3">Centre Index</h1>
 <table id="student" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Address
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Details)
+                Details
             </th>
             <th>
                 Action
@@ -44,9 +40,12 @@
                     Details: ""
                 }
                 $.ajax({
-                    url: "https://localhost:7119/api/Centre/DeleteCentre",
+                    url: "@(Program.ApiAddress)api/Centre/DeleteCentre",
                     type: "post",
                     data: JSON.stringify(req),
+                    headers: {
+                    "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     contentType: "application/json",
                     success: function (res, stt) {
                         if (stt != "success") return;
@@ -62,7 +61,7 @@
                 window.location.href = window.location.protocol + "//" + window.location.host + "/admin/Centre/Update?Id=" + id;
             }
             $.ajax({
-                url: "https://localhost:7119/api/Centre/GetAllCentres",
+                url: "@(Program.ApiAddress)api/Centre/GetAllCentres",
                 type: "get",
                 success: function (result, status) {
                     for (let i = 0; i <= result.Data.length - 1; i++) {

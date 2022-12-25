@@ -1,13 +1,15 @@
 ﻿using DataAPI.Data.Access;
 using DataAPI.Data.Models;
 using DataAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
+    [Authorize]
     public class TeacherController : ControllerBase
     {
         [HttpPost]
@@ -26,6 +28,7 @@ namespace DataAPI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllTeachers()
         {
             ResultInfo resultInfo = new ResultInfo { Status = false, Message = "Can not get information of any teacher!" };

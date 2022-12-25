@@ -1,5 +1,5 @@
 ﻿
-<h1>Create new teacher</h1>
+<h1 class="p-3">Create new teacher</h1>
 <div class="row">
 
     <form class="col-6 mx-auto">
@@ -56,9 +56,12 @@
                     BirthDate: birthdate
                 }
                 $.ajax({
-                    url: "https://localhost:7119/api/Teacher/AddTeacher",
+                    url: "@(Program.ApiAddress)api/Teacher/AddTeacher",
                     type: "post",
                     data: JSON.stringify(req),
+                    headers: {
+                        "Authorization": "Bearer " + "@ViewBag.Token"
+                    },
                     contentType: "application/json",
                     success: function (result, status) {
                         if (status == "success") {

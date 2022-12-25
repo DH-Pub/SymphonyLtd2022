@@ -1,9 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Centre detail</h1>
+﻿
+<h1 class="p-3">Centre detail</h1>
 <div>
 <form class="col-6 mx-auto">
     <div class="form-group">
@@ -42,9 +38,12 @@
                 Details: ""
             }
             $.ajax({
-                url: "https://localhost:7119/api/Centre/GetCentreById",
+                url: "@(Program.ApiAddress)api/Centre/GetCentreById",
                 type: "post",
                 data: JSON.stringify(req),
+                headers: {
+                    "Authorization": "Bearer " + "@ViewBag.Token"
+                },
                 contentType: "application/json",
                 success: function (res, stt) {
                     if (stt != "success") return;
