@@ -46,4 +46,21 @@
         public string ReceiptNumber { get; set; }
         public float Mark { get; set; }
     }
+
+    // -------------------------------------------------------------------------------------------
+    /// <summary>
+    /// Show result of exam through RollNumber input
+    /// </summary>
+    public class ExamResult
+    {
+        public long Id { get; set; }
+        public string RollNumber { get; set; }
+        public string ExamId { get; set; }
+        public string ExamDate { get; set; }
+        public float? Mark { get; set; }
+        public string ClassId { get; set; }
+        public DateTime StartDate { get; set; }
+        public double Fee { get; set; }
+        public string CourseName { get; set; }
+    }
 }

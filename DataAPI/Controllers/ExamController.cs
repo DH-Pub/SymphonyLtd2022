@@ -85,5 +85,14 @@ namespace DataAPI.Controllers
             resultInfo.Status = ExamDB.Instance.DeleteExamDetail(id);
             return Ok(resultInfo);
         }
+
+        // For Getting ExamResult through RollNumber --------------------------------
+        [HttpGet]
+        public IActionResult GetExamResults(string rollNumber)
+        {
+            ResultInfo resultInfo = new ResultInfo { Status = true };
+            resultInfo.Data = ExamDB.Instance.GetExamResults(rollNumber);
+            return Ok(resultInfo);
+        }
     }
 }

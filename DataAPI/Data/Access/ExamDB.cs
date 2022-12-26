@@ -142,5 +142,15 @@ namespace DataAPI.Data.Access
             connection.Close();
             return result;
         }
+
+        // For Exam Results
+        public List<ExamResult> GetExamResults(string rollNumber)
+        {
+            string sql = "SELECT ed.[Id], ed.[RollNumber], ed.[ExamId], e.[Date] as [ExamDate], ed.[PaymentId], ed.[Mark], cd.[ClassId], cl.[StartDate], cl.[Fee], c.[Name] as [CourseName]\r\nFROM [ExamDetails] as ed JOIN [Exams] as e on ed.ExamId = e.Id\r\nJOIN [ClassDetails] as cd on ed.RollNumber = cd.RollNumber\r\nJOIN [Classes] as cl on cd.ClassId = cl.Id\r\nJOIN [Courses] as c on cl.Id = c.Id WHERE ed.[RollNumber]='" + rollNumber + "'";
+            connection.Open();
+            List<ExamResult> result = connection.Query<ExamResult>(sql).ToList();
+            connection.Close();
+            return result;
+        }
     }
 }

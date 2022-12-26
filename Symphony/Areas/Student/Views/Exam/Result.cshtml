@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Exam Result";
+}
+
+<div class="offset-xxl-3 col-xxl-6 offset-xl-2 col-xl-8 offset-lg-1 col-lg-10">
+    <form asp-action="Search" class="row" method="get">
+        <div class="form-group my-3 col-md-10">
+            <input id="rollNumber" class="form-control" name="rollNumber" type="text" value="" placeholder="Please enter roll number ..." required />
+        </div>
+        <div class="form-group my-3 p-auto col-md-2">
+            <input type="submit" class="btn btn-primary" value="View Result" />
+        </div>
+    </form>
+    <span class="text-danger">@ViewData["err"]</span>
+</div>

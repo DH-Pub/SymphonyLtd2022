@@ -47,12 +47,11 @@ namespace DataAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult GetAllStudents()
         {
             ResultInfo resultInfo = new ResultInfo();
             var getAllStudentsResult = StudentDB.Instance.GetAllStudents();
-            if(getAllStudentsResult == null)
+            if (getAllStudentsResult == null)
             {
                 resultInfo.Message = "Can not get all students!";
                 return Ok(resultInfo);
@@ -72,7 +71,7 @@ namespace DataAPI.Controllers
         {
             ResultInfo resultInfo = new ResultInfo();
             var deleteStudentResult = StudentDB.Instance.DeleteStudent(student.RollNumber);
-            if(!deleteStudentResult)
+            if (!deleteStudentResult)
             {
                 resultInfo.Message = "Can not delete this student!";
                 return Ok(resultInfo);
@@ -90,7 +89,7 @@ namespace DataAPI.Controllers
         {
             ResultInfo resultInfo = new ResultInfo();
             var getStudentResult = StudentDB.Instance.GetStudentByRollNo(student.RollNumber);
-            if(getStudentResult == null)
+            if (getStudentResult == null)
             {
                 resultInfo.Message = "Can not get this student!";
                 return Ok(resultInfo);
@@ -111,7 +110,8 @@ namespace DataAPI.Controllers
                 resultInfo.Message = "Can not update information for this student!";
                 return Ok(resultInfo);
             }
-            if (student.Image == null) { 
+            if (student.Image == null)
+            {
                 student.ImageName = "";
             }
             else
@@ -136,7 +136,7 @@ namespace DataAPI.Controllers
                 Gender = student.Gender,
                 BirthDate = student.BirthDate,
                 Image = student.ImageName
-            }; 
+            };
             return Ok(resultInfo);
         }
     }
