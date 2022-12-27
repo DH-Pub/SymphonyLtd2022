@@ -28,8 +28,6 @@
         </tr>
     </thead>
     <tbody id="body">
-        <div id="err-message" class="alert alert-danger w-100" style="display:none">
-        </div>
     </tbody>
 </table>
 
@@ -52,11 +50,7 @@
                     contentType: "application/json",
                     success: function (res, stt) {
                         if (stt != "success") return;
-                        if (!res.Status) { 
-                            $("#err-message").attr("style","display: block")
-                            $("#err-message").text(res.Message);
-                            return;
-                        } 
+                        if (!res.Status) return;
                         location.reload();
                     }
                 })
