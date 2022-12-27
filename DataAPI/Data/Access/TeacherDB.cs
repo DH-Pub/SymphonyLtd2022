@@ -70,7 +70,16 @@ namespace DataAPI.Data.Access
         {
             string sql = "delete from [Teachers] where Id='" + id + "'";
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            bool result = false;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch
+            {
+                connection.Close();
+                return result;
+            }
             connection.Close();
             return result;
         }
