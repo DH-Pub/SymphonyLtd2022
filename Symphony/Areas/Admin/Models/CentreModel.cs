@@ -8,4 +8,12 @@
         public string Phone { get; set; }
         public string Details { get; set; }
     }
+
+    public class ListCentreModel
+    {
+        public bool Status { get; set; }
+        public string Message { get; set; }
+        public List<CentreModel> Data { get; set; }
+
+    }
 }
