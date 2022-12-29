@@ -88,6 +88,7 @@ namespace DataAPI.Controllers
 
         // For Getting ExamResult through RollNumber --------------------------------
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetExamResults(string rollNumber)
         {
             ResultInfo resultInfo = new ResultInfo { Status = true };

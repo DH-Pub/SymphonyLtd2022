@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Symphony.Areas.Admin.Models;
+using Symphony.Areas.Student.Models;
 using System.Text.Json;
 
 namespace Symphony.Areas.Student.Controllers
@@ -22,15 +23,24 @@ namespace Symphony.Areas.Student.Controllers
             }
             return View(new List<ExamCourseModel>());
         }
-        public IActionResult Result()
+        public IActionResult Result(string? rollNumber = "")
         {
-            return View();
-        }
-        public IActionResult Search(string rollNumber)
-        {
-
-            ViewData["err"] = "There is no such roll number";
-            return View("Result");
+            if (string.IsNullOrWhiteSpace(rollNumber))
+            {
+                return View(new List<ExamResult>());
+            }
+            HttpClient httpClient = new HttpClient();
+            var res = httpClient.GetAsync(Program.ApiAddress + "api/Exam/GetExamResults?rollNumber=" + rollNumber).Result;
+            var data = res.Content.ReadAsStringAsync().Result;
+            ExamResultListApi result = JsonSerializer.Deserialize<ExamResultListApi>(data);
+            if (result.Status)
+            {
+                DateTime today = DateTime.Today;
+                List<ExamResult> examResults = result.Data.Where(r => r.Mark != null && r.ExamDate <= today).OrderBy(r => r.ExamDate).ToList();
+                return View(examResults);
+            }
+            TempData["err"] = "There is no such roll number";
+            return View(new List<ExamResult>());
         }
     }
 }

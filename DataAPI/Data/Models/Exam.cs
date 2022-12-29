@@ -56,7 +56,7 @@
         public long Id { get; set; }
         public string RollNumber { get; set; }
         public string ExamId { get; set; }
-        public string ExamDate { get; set; }
+        public DateTime ExamDate { get; set; }
         public float? Mark { get; set; }
         public string ClassId { get; set; }
         public DateTime StartDate { get; set; }
