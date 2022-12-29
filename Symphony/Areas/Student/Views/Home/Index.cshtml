@@ -33,14 +33,15 @@
             {
                 <div class="course-item">
                 <div class="card">
-                    <img src="~/images/javascript.jpg" class="card-img-top" alt="...">
+                    <img src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                        <a class="" asp-area="" asp-controller="" asp-action="">
+                        @Html.ActionLink("Details", "Index", "Course", new { id=item.Id })
+                        @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
                             <span>Detail</span>
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                        </a>
+                        </a>*@
                     </div>
                 </div>
             </div>
@@ -52,7 +53,7 @@
     <div class="introduce-container container p-2">
         <div class="row">
             <div class="introduce-thumb col-7">
-                <img width="100%" src="~/images/javascript.jpg">
+                <img width="100%" src="~/images/matt-palmer-sDpdeFxq_wQ-unsplash.jpg">
             </div>
             <div class="introduce-desc col-5 d-flex flex-column justify-content-center pl-5">
                 <h4 class="mb-3">Welcome To Sports Training Center</h4>
@@ -110,9 +111,9 @@
         </div>
     </div>
 </div>
-<div class="footer-wrapper p-5">
+@*<div class="footer-wrapper p-5">
 <div class="container-fluid">
-    <div class="footer text-light row">
+    <div class="text-light row">
         <div class="footer-item col-4">
             <div class="footer-logo mb-5">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -184,5 +185,5 @@
         </div>
     </div>
 </div>
-</div>
+</div>*@
 
