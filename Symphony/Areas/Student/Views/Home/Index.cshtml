@@ -39,18 +39,20 @@
             <h3 class="text-center">Our courses</h3>
         </div>
         <div class="course-container">
-            @foreach (var item in Model)
+            @for(var i = 0; i < 3; i++)
             {
                 <div class="course-item">
-                    <div class="card">
-                        @*<img src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                            @Html.ActionLink("Details", "Index", "Course", new { id=item.Id })
-                            @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
-                        <span>Detail</span>
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <div class="card">
+                    @*<img src="~/images/javascript.jpg" class="card-img-top" alt="...">*@
+                    <div class="card-body">
+                         @*<div class="card-top d-flex justify-content-between align-items-center">*@
+                            <h5 class="card-title">@(Model.ToList()[i].Name)</h5>
+                            @*@Html.ActionLink("➡", "Index", "Course", new { id=item.Id }, new {@class = "card-link"})*@
+                         @*</div>*@
+                            <p class="card-text">@(Model.ToList()[i].Description)</p>
+                        @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
+                            <span>Detail</span>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </a>*@
                         </div>
                     </div>
@@ -62,9 +64,9 @@
 <div class="introduce p-5 mt-5">
     <div class="introduce-container container p-2">
         <div class="row">
-            @*<div class="introduce-thumb col-7">
-            <img width="100%" src="~/images/matt-palmer-sDpdeFxq_wQ-unsplash.jpg">
-            </div>*@
+            <div class="introduce-thumb col-7">
+                <img width="100%" src="~/images/css3.jpg">
+            </div>
             <div class="introduce-desc col-5 d-flex flex-column justify-content-center pl-5">
                 <h4 class="mb-3">Welcome To Sports Training Center</h4>
                 <p>

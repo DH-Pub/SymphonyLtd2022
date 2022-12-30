@@ -1,33 +1,46 @@
-﻿@model Symphony.Areas.Admin.Models.CourseModel
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.CourseModel>
 
 <div class="banner-container py-5 mb-5">
     <div class="container py-3">
         <div class="banner d-flex justify-content-between">
             <h4 class="banner-left">
-                @(Model.Name)
+                Our Courses
             </h4>
             <div class="banner-right">
                 <a class="banner-link mr-3" asp-area="" asp-controller="Home" asp-action="Index">
                     Homepage
                 </a>
                 >
-                <span class="ml-3">@(Model.Name)</span>
+                <span class="ml-3">Our Courses</span>
             </div>
         </div>
     </div>
 </div>
 <div class="container mb-5">
-    <div class="row">
-        <div class="col-12 mb-3">
-            <div class="course-image">
-                @*<img style="width: 100%; height: 700px" src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" />*@
-            </div>
+    <div class="course">
+        <div class="course-title">
+            <h3 class="text-center">Our courses</h3>
         </div>
-        <div class="col-12">
-            <h4>@(Model.Name)</h4>
-        </div>
-        <div class="col-12">
-            <p>@(Model.Description)</p>
+        <div class="course-container">
+            @foreach (var item in Model)
+            {
+                <div class="course-item">
+                    <div class="card">
+                        @*<img src="~/images/javascript.jpg" class="card-img-top" alt="...">*@
+                        <div class="card-body">
+                            <div class="card-top d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                                @Html.ActionLink("➡", "Detail", "Course", new { id=item.Id }, new {@class = "card-link"})
+                            </div>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                            @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
+                        <span>Detail</span>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </a>*@
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
