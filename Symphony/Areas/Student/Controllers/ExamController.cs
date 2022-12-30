@@ -33,7 +33,7 @@ namespace Symphony.Areas.Student.Controllers
             var res = httpClient.GetAsync(Program.ApiAddress + "api/Exam/GetExamResults?rollNumber=" + rollNumber).Result;
             var data = res.Content.ReadAsStringAsync().Result;
             ExamResultListApi result = JsonSerializer.Deserialize<ExamResultListApi>(data);
-            if (result.Status)
+            if (result.Status && result.Data.Count > 0)
             {
                 DateTime today = DateTime.Today;
                 List<ExamResult> examResults = result.Data.Where(r => r.Mark != null && r.ExamDate <= today).OrderBy(r => r.ExamDate).ToList();
