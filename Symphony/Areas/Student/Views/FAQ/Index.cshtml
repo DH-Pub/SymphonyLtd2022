@@ -1,0 +1,47 @@
+﻿@model List<Symphony.Areas.Admin.Models.FAQ>
+@{
+	ViewData["Title"] = "Symphony Limited";
+}
+
+
+
+
+
+<div>
+	<div style="background-color: rgb(239,239,239);">
+
+		<img src="~/img/faq.jpg" class="img-fluid" alt="faq	" style="height:50%" />
+
+		<section class="pb-4 mt-3 container">
+			<div class="bg-white border rounded-5 border-white">
+				<section class="p-4" style="border-radius: .5rem .5rem 0 0;">
+					
+					<br>
+
+					<div class="row">
+						<h1 style="text-align:center">Frequently asked questions</h1>
+						<br><br><br>
+						
+						<!-- ===================================== Questions ===================================== -->
+						@foreach (var item in Model)
+						{
+							<div class="col-lg-12 col-md-12 mb-4">
+								
+								<!--Question 1 ok--><p>
+									<button type="button" data-toggle="collapse" data-target="@("#q"+item.Number)" aria-expanded="false" aria-controls="@("q"+item.Number)">
+										@Html.DisplayFor(modelItem => item.Question)
+									</button>
+								</p>
+								<div class="collapse" id="@("q"+item.Number)">
+									<div class="card card-body">
+										@Html.DisplayFor(modelItem => item.Answer)
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+</div>

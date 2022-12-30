@@ -1,0 +1,155 @@
+﻿@model List<Symphony.Areas.Admin.Models.About>
+@{
+	ViewData["Title"] = "Symphony Limited";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            
+            margin: 1px;
+        }
+
+        .about-section {
+            padding: 100px;
+            text-align: center;
+            background-image: url("/img/about.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #cccccc;
+            color: white;
+            background-size: cover;
+        }
+
+        .container {
+            padding: 0 8px;
+        }
+
+            .container::after, .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 32%;
+        }
+
+            .button:hover {
+                background-color: blue;
+            }
+
+        .media screen and (max-width: 650px) {
+            .column
+
+        {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="about-section">
+            <h1>About Us Page</h1>
+            @foreach (var item in Model)
+            {
+                <br>@Html.DisplayFor(modelItem => item.Description)
+                <br>
+            }
+        </div>
+        <br><br>
+        <h2 style="text-align:center">Outstanding Teachers</h2>
+        <br><br>
+        <form action="@Url.Action("ConTactUs", "Home")">
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <img src="~/img/hung.PNG" alt="Hung" style="width:100%">
+                        <div class="container">
+                            <h2>Dao Bui Quang Hung</h2>
+                            <p class="title">Teacher</p>
+                            <p>
+                                Teacher of SQL Server
+                            </p>
+                            <p>Hung@gmail.com</p>
+                            <p><button class="button">Contact</button></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <img src="~/img/tuan.jpg" alt="Tuan" style="width: 100%">
+                        <div class="container">
+                            <h2>Mai Quoc Tuan</h2>
+                            <p class="title">Teacher</p>
+                            <p>
+                                Teacher of JAVA
+                            </p>
+                            <p>Tuan@gmail.com</p>
+                            <p><button class="button" href="">Contact</button></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <img src="~/img/trungmessi.jpg alt="Trung" style="width: 100%">
+                        <div class="container">
+                            <h2>Le Quoc Trung</h2>
+                            <p class="title">Teacher</p>
+                            <p>
+                                Teacher of JAVASCRIPT
+                            </p>
+                            <p>Trung@gmail.com</p>
+                            <p><button class="button">Contact</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>
