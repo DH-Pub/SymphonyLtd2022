@@ -71,7 +71,7 @@ namespace DataAPI.Data.Access
         public bool DeleteCourse(string id)
         {
             string sql = "delete from [Courses] where [Id]='" + id + "'";
-            bool result;
+            bool result = false;
             connection.Open();
             try
             {
@@ -80,8 +80,6 @@ namespace DataAPI.Data.Access
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
-                connection.Close();
-                return false;
             }
             connection.Close();
             return result;

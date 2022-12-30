@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Symphony Limited";
 }
+@section Styles{
+    <style>
+        #carouselExampleControls {
+            max-height: 450px;
+        }
+    </style>
+}
+@*
+
+*@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
@@ -11,7 +21,7 @@
             @*<img style="width: 100%;" src="~/images/css3.jpg" class="d-block w-100" alt="...">*@
         </div>
         <div class="carousel-item">
-            @*<img style="width: 100%;" src="~/images/javascript.jpg" class="d-block w-100" alt="...">*@ 
+            @*<img style="width: 100%;" src="~/images/javascript.jpg" class="d-block w-100" alt="...">*@
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -32,19 +42,19 @@
             @foreach (var item in Model)
             {
                 <div class="course-item">
-                <div class="card">
-                    <img src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                        @Html.ActionLink("Details", "Index", "Course", new { id=item.Id })
-                        @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
-                            <span>Detail</span>
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    <div class="card">
+                        @*<img src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" class="card-img-top" alt="...">*@
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                            @Html.ActionLink("Details", "Index", "Course", new { id=item.Id })
+                            @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
+                        <span>Detail</span>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </a>*@
+                        </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
@@ -52,9 +62,9 @@
 <div class="introduce p-5 mt-5">
     <div class="introduce-container container p-2">
         <div class="row">
-            <div class="introduce-thumb col-7">
-                <img width="100%" src="~/images/matt-palmer-sDpdeFxq_wQ-unsplash.jpg">
-            </div>
+            @*<div class="introduce-thumb col-7">
+            <img width="100%" src="~/images/matt-palmer-sDpdeFxq_wQ-unsplash.jpg">
+            </div>*@
             <div class="introduce-desc col-5 d-flex flex-column justify-content-center pl-5">
                 <h4 class="mb-3">Welcome To Sports Training Center</h4>
                 <p>
@@ -81,32 +91,32 @@
             <h3 class="text-center">Our objectives</h3>
         </div>
         <div class="objective-container">
-             <div class="objective-item">
-					<div class="objective-detail">
-						<div class="objective-icon">
-							<i class="fa fa-line-chart"></i>
-						</div>
-						<h3>Officially The Best</h3>
-						<p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
-					</div>							
+            <div class="objective-item">
+                <div class="objective-detail">
+                    <div class="objective-icon">
+                        <i class="fa fa-line-chart"></i>
+                    </div>
+                    <h3>Officially The Best</h3>
+                    <p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
+                </div>
             </div>
             <div class="objective-item">
-					<div class="objective-detail">
-						<div class="objective-icon">
-							<i class="fa fa-line-chart"></i>
-						</div>
-						<h3>Officially The Best</h3>
-						<p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
-					</div>							
+                <div class="objective-detail">
+                    <div class="objective-icon">
+                        <i class="fa fa-line-chart"></i>
+                    </div>
+                    <h3>Officially The Best</h3>
+                    <p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
+                </div>
             </div>
             <div class="objective-item">
-                    <div class="objective-detail">
-                        <div class="objective-icon">
-                            <i class="fa fa-line-chart"></i>
-                        </div>
-                        <h3>Officially The Best</h3>
-                        <p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
-                    </div>							
+                <div class="objective-detail">
+                    <div class="objective-icon">
+                        <i class="fa fa-line-chart"></i>
+                    </div>
+                    <h3>Officially The Best</h3>
+                    <p>Just in case there is anyone looking for it, new expertise to our knowledge base to make you happy as well.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -121,7 +131,7 @@
                 </a>
             </div>
             <div>
-                Training Institute is an outstanding HTML template targeting educational institutions, 
+                Training Institute is an outstanding HTML template targeting educational institutions,
                 helping them establish strong identity on the internet without any real developing knowledge.
             </div>
         </div>

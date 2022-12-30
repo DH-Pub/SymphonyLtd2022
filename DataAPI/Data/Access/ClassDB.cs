@@ -58,8 +58,16 @@ namespace DataAPI.Data.Access
                 CourseId = model.CourseId,
                 CentreId = model.CentreId,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -78,16 +86,32 @@ namespace DataAPI.Data.Access
                 CourseId = model.CourseId,
                 CentreId = model.CentreId,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
         public bool DeleteClass(string id)
         {
             string sql = "delete from [Classes] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -123,8 +147,16 @@ namespace DataAPI.Data.Access
                 IsPass = classDetail.IsPass,
                 IsLabSession = classDetail.IsLabSession,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -141,16 +173,32 @@ namespace DataAPI.Data.Access
                 IsPass = classDetail.IsPass,
                 IsLabSession = classDetail.IsLabSession,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
         public bool DeleteClassDetail(long id)
         {
             string sql = "delete from [ClassDetails] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Symphony</title>
+    <link rel="icon" type="image/x-icon" href="~/img/logo/favicon.ico" />
 
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" /> <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -12,7 +13,7 @@
     @*<link rel="stylesheet" href="~/Symphony.styles.css" asp-append-version="true" />*@
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
+<body class="vh-100 d-flex flex-column">
     @Html.Partial("Header") <!-- Header -->
 
     <div class="">

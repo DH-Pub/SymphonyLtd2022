@@ -56,8 +56,16 @@ namespace DataAPI.Data.Access
                 Details = exam.Details,
                 Fee = exam.Fee
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -72,16 +80,32 @@ namespace DataAPI.Data.Access
                 Details = exam.Details,
                 Fee = exam.Fee
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
         public bool DeleteExam(string id)
         {
             string sql = "delete from [Exams] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -113,7 +137,7 @@ namespace DataAPI.Data.Access
                 PaymentId = examDetail.PaymentId,
                 Mark = examDetail.Mark
             };
-            bool result;
+            bool result = false;
             connection.Open();
             try
             {
@@ -122,7 +146,6 @@ namespace DataAPI.Data.Access
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
-                result = false;
             }
             connection.Close();
             return result;
@@ -138,7 +161,7 @@ namespace DataAPI.Data.Access
                 PaymentId = examDetail.PaymentId,
                 Mark = examDetail.Mark
             };
-            bool result;
+            bool result = false;
             connection.Open();
             try
             {
@@ -147,7 +170,6 @@ namespace DataAPI.Data.Access
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
-                result = false;
             }
             connection.Close();
             return result;
@@ -155,8 +177,16 @@ namespace DataAPI.Data.Access
         public bool DeleteExamDetail(long id)
         {
             string sql = "delete from [ExamDetails] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }

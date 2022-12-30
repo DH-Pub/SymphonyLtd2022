@@ -48,8 +48,16 @@ namespace DataAPI.Data.Access
                 Date = payment.Date,
                 Details = payment.Details,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
@@ -65,16 +73,32 @@ namespace DataAPI.Data.Access
                 Date = payment.Date,
                 Details = payment.Details,
             };
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
         public bool DeletePayment(long id)
         {
             string sql = "delete from [Payments] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
