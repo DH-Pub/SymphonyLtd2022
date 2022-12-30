@@ -17,21 +17,21 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             @*<img style="width: 100%; height: 80%" src="~/images/html5.jpg" class="d-block w-100" alt="...">*@
-            <div class="d-flex justify-content-center h-100">
+            @*<div class="d-flex justify-content-center h-100">
                 <img src="~/img/institute1.jpg" class="d-block h-100" alt="" />
-            </div>
+            </div>*@
         </div>
         <div class="carousel-item">
             @*<img style="width: 100%;" src="~/images/css3.jpg" class="d-block w-100" alt="...">*@
-            <div class="d-flex justify-content-center h-100">
+            @*<div class="d-flex justify-content-center h-100">
                 <img src="~/img/institute2.jpg" class="d-block h-100" alt="" />
-            </div>
+            </div>*@
         </div>
         <div class="carousel-item">
             @*<img style="width: 100%;" src="~/images/javascript.jpg" class="d-block w-100" alt="...">*@
-            <div class="d-flex justify-content-center h-100">
+            @*<div class="d-flex justify-content-center h-100">
                 <img src="~/img/institute3.jpg" class="d-block h-100" alt="" />
-            </div>
+            </div>*@
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -49,21 +49,20 @@
             <h3 class="text-center">Our courses</h3>
         </div>
         <div class="course-container">
-            @foreach (var item in Model.Take(3))
+            @for(var i = 0; i < 3; i++)
             {
                 <div class="course-item">
-                    <div class="card">
-                        @*<img src="~/images/jael-vallee-8WPisO0NZmg-unsplash.jpg" class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                            @{
-                                int max = (item.Description.Length >= 100) ? 100 : item.Description.Length;
-                            }
-                            <p class="card-text">@item.Description.ToString().Substring(0,max)</p>
-                            @Html.ActionLink("Details", "Index", "Course", new { id=item.Id })
-                            @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
-                        <span>Detail</span>
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <div class="card">
+                    @*<img src="~/images/javascript.jpg" class="card-img-top" alt="...">*@
+                    <div class="card-body">
+                         @*<div class="card-top d-flex justify-content-between align-items-center">*@
+                            <h5 class="card-title">@(Model.ToList()[i].Name)</h5>
+                            @*@Html.ActionLink("➡", "Index", "Course", new { id=item.Id }, new {@class = "card-link"})*@
+                         @*</div>*@
+                            <p class="card-text">@(Model.ToList()[i].Description)</p>
+                        @*<a class="" asp-area="Student" asp-controller="Course" asp-action="Index">
+                            <span>Detail</span>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </a>*@
                         </div>
                     </div>
@@ -74,6 +73,7 @@
 </div>
 <div class="introduce p-5 mt-5">
     <div class="introduce-container container p-2">
+
         <div class="row">
             <div class="introduce-thumb col-7">
                 <img width="100%" src="~/images/css3.jpg">
