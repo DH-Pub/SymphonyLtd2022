@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Symphony.Areas.Student.Models.ExamResult>
+@{
+    ViewData["Title"] = "Exam Result";
+}
+<div class="container">
+    <div class="offset-xxl-3 col-xxl-6 offset-xl-2 col-xl-8 offset-lg-1 col-lg-10">
+        <form asp-action="Result" class="row" method="get">
+            <div class="form-group my-3 col-md-10">
+                <input id="rollNumber" class="form-control" name="rollNumber" type="text" value="" placeholder="Please enter roll number ..." required />
+            </div>
+            <div class="form-group my-3 p-auto col-md-2">
+                <input type="submit" class="btn btn-primary" value="View Result" />
+            </div>
+        </form>
+        <span class="text-danger">@TempData["err"]</span>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExamId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExamDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mark)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassId)
+                </th>
+                <th>
+                    Payment Deadline
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassId)
+                    </td>
+                    <td>
+                        @item.StartDate.AddDays(-1).ToString("MM/dd/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

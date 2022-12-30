@@ -67,7 +67,16 @@ namespace DataAPI.Data.Access
                 RollNumber = rollNo
             };
             connection.Open();
-            bool result = connection.Execute(sql, param) == 1;
+            bool result = false;
+            try
+            {
+                result = connection.Execute(sql, param) == 1;
+            }
+            catch
+            {
+                connection.Close();
+                return result;
+            }
             connection.Close();
             return result;
         }

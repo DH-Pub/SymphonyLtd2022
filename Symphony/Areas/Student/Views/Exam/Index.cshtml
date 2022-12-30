@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Symphony.Areas.Admin.Models.ExamCourseModel>
+
+@{
+    ViewData["Title"] = "Upcoming Exams";
+}
+<div class="container">
+    <h1>Upcoming Exams</h1>
+
+    <p>
+        <a asp-action="Result">View Result</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Exam Id
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fee)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Details)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fee)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

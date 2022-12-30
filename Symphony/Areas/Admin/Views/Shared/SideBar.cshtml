@@ -5,9 +5,9 @@
 }
 <!-- Use Authorization -->
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-indo elevation-4">
     <!-- Brand Logo -->
-    <a asp-action="Index" asp-controller="Home" class="brand-link">
+    <a asp-action="Index" asp-controller="Home" class="brand-link text-decoration-none">
         @*<img src="~/lib/admin-lte/img/AdminLTELogo.png"
         alt="Product Demo"
         class="brand-image img-circle elevation-3"
@@ -17,46 +17,34 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="~/lib/admin-lte/img/AdminLTELogo.png" class="img-circle elevation-2" alt="Admin">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">@adminName</a>
-            </div>
-        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
 
-                <!-- Admin -->
-                <li class="nav-item has-treeview">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-lock fa-duotone"></i>
+                @*<!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                <img src="~/lib/admin-lte/img/AdminLTELogo.png" class="img-circle elevation-2" alt="Admin">
+                </div>
+                <div class="info">
+                <a href="#" class="d-block text-decoration-none">@adminName</a>
+                </div>
+                </div>*@
+
+
+                <!--Account-->
+                <li class="nav-item has-treeview user-panel">
+                    <a href="" class="nav-link d-flex">
+                        <div class="image p-0 pe-1">
+                            <img src="~/lib/admin-lte/img/AdminLTELogo.png" class="img-circle elevation-2" alt="Admin">
+                        </div>
                         <p>
-                            Admins
+                            @adminName
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-2">
-
-                        @if (User.IsInRole("Main"))
-                        {
-                            <li class="nav-item">
-                                <a asp-action="Index" asp-controller="Admin" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>View Admin List</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-action="Create" asp-controller="Admin" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Create an Admin</p>
-                                </a>
-                            </li>
-                        }
                         <li class="nav-item">
                             <a asp-action="Details" asp-controller="Admin" asp-route-id="@adminId" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -75,8 +63,41 @@
                                 <p>Update Passwords</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-action="Logout" asp-controller="Home" class="ms-2 btn btn-danger mb-2">Logout</a>
+                        </li>
                     </ul>
                 </li>
+
+
+                @if (User.IsInRole("Main"))
+                {
+                    <!-- Admin -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-lock fa-duotone"></i>
+                            <p>
+                                Admins
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-2">
+
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Admin" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>View Admin List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Create" asp-controller="Admin" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create an Admin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
 
                 <!--Courses-->
                 <li class="nav-item has-treeview">
@@ -337,6 +358,5 @@
     </div>
     <!-- /.sidebar -->
 
-    <a asp-action="Logout" asp-controller="Home" class="link-danger">Logout</a>
 </aside>
 

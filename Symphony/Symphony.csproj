@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\logo\" />
     <Folder Include="wwwroot\lib\admin-lte\plugins\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>

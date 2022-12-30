@@ -47,6 +47,10 @@ namespace DataAPI.Controllers
         {
             ResultInfo resultInfo = new ResultInfo();
             resultInfo.Status = CourseDB.Instance.DeleteCourse(id);
+            if (resultInfo.Status == false)
+            {
+                resultInfo.Message = "Unable to delete";
+            }
             return Ok(resultInfo);
         }
     }

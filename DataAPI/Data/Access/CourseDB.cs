@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataAPI.Data.Models;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace DataAPI.Data.Access
 {
@@ -70,8 +71,16 @@ namespace DataAPI.Data.Access
         public bool DeleteCourse(string id)
         {
             string sql = "delete from [Courses] where [Id]='" + id + "'";
+            bool result = false;
             connection.Open();
-            bool result = connection.Execute(sql) == 1;
+            try
+            {
+                result = connection.Execute(sql) == 1;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             connection.Close();
             return result;
         }
