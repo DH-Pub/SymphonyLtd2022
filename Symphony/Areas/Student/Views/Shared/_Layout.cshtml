@@ -23,9 +23,16 @@
             &copy; 2022 - Symphony - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/admin-lte/plugins/jquery/jquery.min.js"></script> <!-- jQuery for AdminLTE -->
+    <script src="~/lib/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap 4 for AdminLTE -->
+    <script src="~/lib/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script> <!-- DataTables for AdminLTE -->
+    <script src="~/lib/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap for AdminLTE -->
+    <script src="~/lib/admin-lte/js/adminlte.min.js"></script> <!-- AdminLTE js -->
+    @*<script src="~/lib/admin-lte/js/demo.min.js"></script> <!-- AdminLTE for demo purposes -->*@
+    <script src="~/lib/toastr.js/toastr.min.js"></script> <!-- Toastr js-->
+
+
+    <script src="~/js/admin.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
