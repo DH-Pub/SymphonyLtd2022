@@ -36,7 +36,7 @@ header {
     }
 .carousel-item {
     width: 100%;
-    height: 80vh;
+    height: 450px;
     background-position: center;
     background-size: cover;
 }
@@ -115,8 +115,6 @@ header {
     flex-direction: column;
     border-bottom: 2px solid #000c13;
     /*justify-content: space-between;*/
-<<<<<<< Updated upstream
-=======
 }
 .card-top {
     background-color: #000c13;
@@ -128,30 +126,7 @@ header {
     background-color: #000c13;
     color: #fff;
     padding: 10px 0;
->>>>>>> Stashed changes
 }
-.card-top {
-    background-color: #000c13;
-    padding: 0 10px;
-<<<<<<< Updated upstream
-=======
-}
-.card-title {
-    margin: 0;
-    text-align: center;
-    background-color: #000c13;
-    color: #fff;
-    padding: 10px 0;
->>>>>>> Stashed changes
-}
-.card-title {
-    margin: 0;
-    text-align: center;
-    background-color: #000c13;
-    color: #fff;
-    padding: 10px 0;
-}
-
 .card-text {
     overflow: hidden;
     text-overflow: ellipsis;
