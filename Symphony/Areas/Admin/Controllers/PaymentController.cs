@@ -103,7 +103,7 @@ namespace Symphony.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewData["err"] = "Error, unable to delete";
+            TempData["err"] = "Error, unable to delete";
             return RedirectToAction("Index");
         }
     }
