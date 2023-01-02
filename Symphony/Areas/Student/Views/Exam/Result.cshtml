@@ -2,6 +2,26 @@
 @{
     ViewData["Title"] = "Exam Result";
 }
+<div class="banner-container py-5 mb-5">
+    <div class="container py-3">
+        <div class="banner d-flex justify-content-between">
+            <h4 class="banner-left">
+                Result
+            </h4>
+            <div class="banner-right">
+                <a class="banner-link mr-3" asp-area="Student" asp-controller="Home" asp-action="Index">
+                    Homepage
+                </a>
+                >
+                <a class="banner-link mx-3" asp-area="Student" asp-controller="Exam" asp-action="Index">
+                    Exams
+                </a>
+                >
+                <span class="ml-3">Result</span>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="offset-xxl-3 col-xxl-6 offset-xl-2 col-xl-8 offset-lg-1 col-lg-10">
         <form asp-action="Result" class="row" method="get">
