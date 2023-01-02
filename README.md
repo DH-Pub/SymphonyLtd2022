@@ -8,5 +8,5 @@
 o	Run the program
 o	Go to Admin, enter a random email and a random password 1 time. A main admin account will be generated with the MainEmail and MainPassword in appsettings.json.
 
-View 0-documents for more
-Sql files are in 1-database
+<p>View 0-documents for more</p>
+<p>Sql files are in 1-database</p>
