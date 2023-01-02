@@ -1,39 +1,61 @@
 ﻿@model List<Symphony.Areas.Admin.Models.FAQ>
 @{
-	ViewData["Title"] = "Symphony Limited";
+	ViewData["Title"] = "FAQ's";
+}
+@section Styles{
+    <style>
+		.faq-banner {
+			width: 100%;
+			height: 450px;
+			background-image: url("/images/faq.jpg");
+			background-size: cover;
+			background-position: center;
+		}
+    </style>
 }
 
 
 
 
-
+	<div class="banner-container py-5">
+		<div class="container py-3">
+			<div class="banner d-flex justify-content-between">
+				<h4 class="banner-left">
+					FAQ's
+				</h4>
+				<div class="banner-right">
+					<a class="banner-link mr-3" asp-area="" asp-controller="Home" asp-action="Index">
+						Homepage
+					</a>
+					>
+					<span class="ml-3">FAQ's</span>
+				</div>
+			</div>
+		</div>
+	</div>
 <div>
-	<div style="background-color: rgb(239,239,239);">
+	<div>
 
-		<img src="~/img/faq.jpg" class="img-fluid" alt="faq	" style="height:50%" />
-
-		<section class="pb-4 mt-3 container">
-			<div class="bg-white border rounded-5 border-white">
-				<section class="p-4" style="border-radius: .5rem .5rem 0 0;">
-					
-					<br>
-
+		<section class="pb-4 container">
+			<div>
+				<section class="" style="border-radius: .5rem .5rem 0 0;">
 					<div class="row">
-						<h1 style="text-align:center">Frequently asked questions</h1>
-						<br><br><br>
+							<div class="course-title w-100">
+								<h3 class="text-center">Frequently asked questions</h3>
+							</div>
 						
 						<!-- ===================================== Questions ===================================== -->
 						@foreach (var item in Model)
 						{
 							<div class="col-lg-12 col-md-12 mb-4">
 								
-								<!--Question 1 ok--><p>
-									<button type="button" data-toggle="collapse" data-target="@("#q"+item.Number)" aria-expanded="false" aria-controls="@("q"+item.Number)">
+								<!--Question 1 ok-->
+									<button class="px-3 mb-2 btn btn-warning" type="button" data-toggle="collapse" data-target="@("#q"+item.Number)" aria-expanded="false" aria-controls="@("q"+item.Number)">
 										@Html.DisplayFor(modelItem => item.Question)
 									</button>
-								</p>
+								
 								<div class="collapse" id="@("q"+item.Number)">
-									<div class="card card-body">
+									<div class="bg-dark text-light rounded px-3 py-2">
 										@Html.DisplayFor(modelItem => item.Answer)
 									</div>
 								</div>
