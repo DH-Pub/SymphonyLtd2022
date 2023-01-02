@@ -24,13 +24,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Number)
                 </td>
-                <td>
+                <td style="max-width: 900px">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.ActionLink("Update", "Update", new {id=item.Number}) |
-                    @Html.ActionLink("Details", "Details", new {id=item.Number}) |
-                    @Html.ActionLink("Delete", "Delete", new {id=item.Number})
+                    <a href="@Url.Action("Details", "About", new { id=item.Number })" class="btn btn-secondary">
+                        <i class='fa fa-info-circle' aria-hidden='true'></i>
+                    </a>
+                    <a href="@Url.Action("Update", "About", new { id=item.Number })" class="btn btn-secondary">
+                        <i class='fa fa-pencil-square' aria-hidden='true'></i>
+                    </a>
+                    <a href="@Url.Action("Delete", "About", new { id=item.Number })" onclick="return confirm('Do you want to delete this ?')" class="btn btn-secondary">
+                        <i class='fa fa-trash' aria-hidden='true'></i>
+                    </a>
                 </td>
             </tr>
         }

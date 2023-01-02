@@ -63,9 +63,15 @@
                     @Html.DisplayFor(modelItem => item.IsLabSession)
                 </td>
                 <td>
-                    @Html.ActionLink("Update", "UpdateDetails", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "DetailsShow", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteDetails", new { id=item.Id })
+                    <a href="@Url.Action("DetailsShow", "Class", new { id=item.Id })" class="btn btn-secondary">
+                        <i class='fa fa-info-circle' aria-hidden='true'></i>
+                    </a>
+                    <a href="@Url.Action("UpdateDetails", "Class", new { id=item.Id })" class="btn btn-secondary">
+                        <i class='fa fa-pencil-square' aria-hidden='true'></i>
+                    </a>
+                    <a href="@Url.Action("DeleteDetails", "Class", new { id=item.Id })" onclick="return confirm('Do you want to delete detail of this class ?')" class="btn btn-secondary">
+                        <i class='fa fa-trash' aria-hidden='true'></i>
+                    </a>
                 </td>
             </tr>
         }

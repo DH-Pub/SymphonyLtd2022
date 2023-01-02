@@ -46,7 +46,7 @@ header {
     }
 
     .carousel-item:nth-child(2) {
-        background-image: url("/images//css3.jpg");
+        background-image: url("/images/css3.jpg");
     }
 
     .carousel-item:nth-child(3) {
@@ -292,7 +292,7 @@ header {
 }
 
 .course-image {
-    background-image: url("/images/javascript.jpg");
+    background-image: url("/images/course.jpg");
     background-position: center;
     background-size: cover;
     width: 100%;
