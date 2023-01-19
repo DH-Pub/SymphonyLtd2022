@@ -1,344 +1,345 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 @media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+  html {
+    font-size: 16px;
+  }
 }
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-    font-family: 'Yu Gothic UI';
-    /*background-color: #f7f7f7;*/
+  font-family: "Yu Gothic UI";
+  /*background-color: #f7f7f7;*/
 }
 
 header {
-    box-shadow: 1px 1px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.2);
 }
 .nav-link {
-    font-weight: 700;
-    transition: linear .2s;
+  font-weight: 700;
+  transition: linear 0.2s;
 }
-    .nav-link:hover {
-        color: #eb7f1c!important;
-    }
+.nav-link:hover {
+  color: #eb7f1c !important;
+}
 .carousel-item {
-    width: 100%;
-    height: 450px;
-    background-position: center;
-    background-size: cover;
+  width: 100%;
+  height: 450px;
+  background-position: center;
+  background-size: cover;
 }
 
-    .carousel-item:nth-child(1) {
-        background-image: url("/images/html5.jpg");
-    }
+.carousel-item:nth-child(1) {
+  background-image: url("/images/html5.jpg");
+}
 
-    .carousel-item:nth-child(2) {
-        background-image: url("/images/css3.jpg");
-    }
+.carousel-item:nth-child(2) {
+  background-image: url("/images/css3.jpg");
+}
 
-    .carousel-item:nth-child(3) {
-        background-image: url("/images/javascript.jpg");
-    } 
+.carousel-item:nth-child(3) {
+  background-image: url("/images/javascript.jpg");
+}
 .course-title {
-    margin-top: 50px;
-    padding-bottom: 100px;
+  margin-top: 50px;
+  padding-bottom: 100px;
 }
 
-    .course-title h3 {
-        position: relative;
-        text-transform: capitalize;
-        display: inline-block;
-        float: left;
-        width: 100%;
-        margin: 0;
-        padding-bottom: 15px;
-        font-size: 28px;
-    }
+.course-title h3 {
+  position: relative;
+  text-transform: capitalize;
+  display: inline-block;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 28px;
+}
 
-        .course-title h3:after, .course-title h3:before {
-            position: absolute;
-            margin: 0 auto;
-            width: 80px;
-            content: "";
-            border-radius: 3px;
-        }
+.course-title h3:after,
+.course-title h3:before {
+  position: absolute;
+  margin: 0 auto;
+  width: 80px;
+  content: "";
+  border-radius: 3px;
+}
 
-        .course-title h3:before {
-            top: 100%;
-            left: 0;
-            right: 20px;
-            height: 2px;
-            background-color: #eb7f1c;
-        }
+.course-title h3:before {
+  top: 100%;
+  left: 0;
+  right: 20px;
+  height: 2px;
+  background-color: #eb7f1c;
+}
 
-        .course-title h3:after {
-            top: 110%;
-            left: 20px;
-            right: 0;
-            height: 0;
-            border-bottom: 2px solid #002b46;
-        }
+.course-title h3:after {
+  top: 110%;
+  left: 20px;
+  right: 0;
+  height: 0;
+  border-bottom: 2px solid #002b46;
+}
 
 .course-container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .course-item {
-    margin: 0 10px 20px;
-    width: calc(100% / 3 - 20px);
-    min-height: 285px;
+  margin: 0 10px 20px;
+  width: calc(100% / 3 - 20px);
+  min-height: 285px;
 }
 
 .card {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .card-top {
-    background-color: #000c13;
-    padding: 0 10px;
+  background-color: #000c13;
+  padding: 0 10px;
 }
 .card-body {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 .card-title {
-    margin: 0;
-    text-align: center;
-    background-color: #000c13;
-    color: #fff;
-    padding: 10px 0;
+  margin: 0;
+  text-align: center;
+  background-color: #000c13;
+  color: #fff;
+  padding: 10px 0;
 }
 .card-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
-    padding:0 10px;
-    margin: 10px 0 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  padding: 0 10px;
+  margin: 10px 0 !important;
 }
 .card-link {
-    /*margin-top: 10px;
+  /*margin-top: 10px;
     padding: 0 10px;
     position: absolute;
     bottom: 0;
     right: 0;*/
-    font-size: 20px;
-    text-shadow: 1px 1px 1px #fff;
-    color: #eb7f1c;
-    transition: linear .2s;
+  font-size: 20px;
+  text-shadow: 1px 1px 1px #fff;
+  color: #eb7f1c;
+  transition: linear 0.2s;
 }
-    .card-link:hover {
-        color: #fff;
-        text-shadow: unset;
-    }
+.card-link:hover {
+  color: #fff;
+  text-shadow: unset;
+}
 .introduce {
-    background-color: #000c13;
+  background-color: #000c13;
 }
 
 .introduce-desc {
-    color: #fff;
+  color: #fff;
 }
 
 .objective-title {
-    margin-top: 50px;
-    padding-bottom: 100px;
+  margin-top: 50px;
+  padding-bottom: 100px;
 }
 
-    .objective-title h3 {
-        position: relative;
-        text-transform: capitalize;
-        display: inline-block;
-        float: left;
-        width: 100%;
-        margin: 0;
-        padding-bottom: 15px;
-        font-size: 28px;
-    }
+.objective-title h3 {
+  position: relative;
+  text-transform: capitalize;
+  display: inline-block;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 28px;
+}
 
-        .objective-title h3:after, .objective-title h3:before {
-            position: absolute;
-            margin: 0 auto;
-            width: 80px;
-            content: "";
-            border-radius: 3px;
-        }
+.objective-title h3:after,
+.objective-title h3:before {
+  position: absolute;
+  margin: 0 auto;
+  width: 80px;
+  content: "";
+  border-radius: 3px;
+}
 
-        .objective-title h3:before {
-            top: 100%;
-            left: 0;
-            right: 20px;
-            height: 2px;
-            background-color: #eb7f1c;
-        }
+.objective-title h3:before {
+  top: 100%;
+  left: 0;
+  right: 20px;
+  height: 2px;
+  background-color: #eb7f1c;
+}
 
-        .objective-title h3:after {
-            top: 110%;
-            left: 20px;
-            right: 0;
-            height: 0;
-            border-bottom: 2px solid #002b46;
-        }
+.objective-title h3:after {
+  top: 110%;
+  left: 20px;
+  right: 0;
+  height: 0;
+  border-bottom: 2px solid #002b46;
+}
 
 .objective-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .objective-item {
-    width: 350px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #eeeeee;
-    text-align: center;
+  width: 350px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #eeeeee;
+  text-align: center;
 }
 
 .objective-detail {
-    padding: 0 30px;
+  padding: 0 30px;
 }
 
 .objective-icon {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-    .objective-icon i {
-        color: #1565c0;
-        font-size: 50px;
-    }
+.objective-icon i {
+  color: #1565c0;
+  font-size: 50px;
+}
 
 .objective-detail h3 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .objective-detail p {
-    margin: 0;
+  margin: 0;
 }
 
 .footer-wrapper {
-    background-color: #000c13;
+  background-color: #000c13;
 }
 
 .footer-logo a {
-    padding: 10px;
-    box-shadow: 1px 1px 1px 1px #f7f7f7;
+  padding: 10px;
+  box-shadow: 1px 1px 1px 1px #f7f7f7;
 }
 
 .footer-text {
-    padding-bottom: 5px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #fff;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #fff;
 }
 
 .footer-info {
-    min-height: 45px;
+  min-height: 45px;
 }
 
 .footer-icon {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .footer-detail {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .copyright {
-    color: #000;
-    font-size: 20px;
-    /*font-style: italic;*/
+  color: #000;
+  font-size: 20px;
+  /*font-style: italic;*/
 }
 
 .banner-container {
-    background-color: #000c13;
-    color: #fff;
+  background-color: #000c13;
+  color: #fff;
 }
 
 .banner-link {
-    text-decoration: unset;
-    font-size: 18px;
-    color: #fff;
-    transition: linear .2s;
+  text-decoration: unset;
+  font-size: 18px;
+  color: #fff;
+  transition: linear 0.2s;
 }
 
-    .banner-link:hover {
-        color: #eb7f1c;
-        text-decoration: unset;
-    }
+.banner-link:hover {
+  color: #eb7f1c;
+  text-decoration: unset;
+}
 
 .banner-left {
-    /*font-family:'Cascadia Code';*/
+  /*font-family:'Cascadia Code';*/
 }
 
 .banner-right span {
-    color: #eb7f1c;
+  color: #eb7f1c;
 }
 
 .course-image {
-    background-image: url("/images/course.jpg");
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-    height: 500px;
+  background-image: url("/images/course.jpg");
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 500px;
 }
 
 .contact-thumb {
-    background-image: url("/images/css3.jpg");
-    background-position: center;
-    background-size: cover;
-    width: 50%;
-    height: 200px;
+  background-image: url("/images/css3.jpg");
+  background-position: center;
+  background-size: cover;
+  width: 50%;
+  height: 200px;
 }
 
 .contact-container {
-    
 }
 
 .contact-item {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    /*border: 1px solid #000;*/
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  /*border: 1px solid #000;*/
 }
 
 .contact-info {
-    width: 30%;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 15px;
-    border: 1px solid grey;
+  width: 30%;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 15px;
+  border: 1px solid grey;
 }
 .contact-desc p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .contact-label {
-    color: grey;
+  color: grey;
 }
 
 .footer-logo a {
-    box-shadow: none;
+  box-shadow: none;
 }
